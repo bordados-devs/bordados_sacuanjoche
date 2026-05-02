@@ -1,0 +1,358 @@
+/* Input.module.css */
+@import '../../../styles/variables.css';
+
+/* ===== INPUT WRAPPER ===== */
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.inputWrapper.fullWidth {
+  width: 100%;
+}
+
+/* ===== LABEL STYLES ===== */
+.label {
+  font-family: var(--font-secondary);
+  font-size: var(--text-meta-desktop);
+  font-weight: var(--weight-medium);
+  color: var(--gray-400);
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+.required {
+  color: var(--state-error);
+  font-weight: var(--weight-bold);
+}
+
+/* ===== INPUT CONTAINER ===== */
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* ===== BASE INPUT STYLES ===== */
+.input {
+  font-family: var(--font-secondary);
+  font-weight: var(--weight-regular);
+  color: var(--gray-500);
+  background-color: var(--gray-100);
+  border: 0.0625rem solid var(--gray-200);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+  outline: none;
+  width: 100%;
+  line-height: 1.5;
+}
+
+.input::placeholder {
+  color: var(--gray-300);
+  opacity: 0.7;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input:disabled {
+  background-color: var(--gray-200);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.input.readOnly {
+  background-color: var(--gray-100);
+  cursor: default;
+}
+
+/* ===== INPUT SIZES ===== */
+
+/* Medium (default) */
+.input.medium {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-body-desktop);
+  min-height: 2.75rem;
+}
+
+/* Small */
+.input.small {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--text-meta-desktop);
+  min-height: 2.25rem;
+}
+
+/* Large */
+.input.large {
+  padding: var(--space-md) var(--space-lg);
+  font-size: 1.125rem;
+  min-height: 3.25rem;
+}
+
+/* ===== ICON POSITIONING ===== */
+
+.icon {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-400);
+  pointer-events: none;
+  font-size: 1.25rem;
+}
+
+.iconLeft {
+  left: var(--space-md);
+}
+
+.iconRight {
+  right: var(--space-md);
+}
+
+/* Adjust padding when icons are present */
+.input.hasIconLeft {
+  padding-left: 2.5rem;
+}
+
+.input.hasIconRight {
+  padding-right: 2.5rem;
+}
+
+/* Icon sizes for different input sizes */
+.small.hasIconLeft {
+  padding-left: 2rem;
+}
+
+.small.hasIconRight {
+  padding-right: 2rem;
+}
+
+.small .icon {
+  font-size: 1rem;
+}
+
+.large.hasIconLeft {
+  padding-left: 3rem;
+}
+
+.large.hasIconRight {
+  padding-right: 3rem;
+}
+
+.large .icon {
+  font-size: 1.5rem;
+}
+
+/* ===== STATUS INDICATORS ===== */
+.statusIndicators {
+  position: absolute;
+  right: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  pointer-events: none;
+}
+
+.errorIndicator,
+.successIndicator,
+.warningIndicator {
+  font-size: 1rem;
+}
+
+/* Adjust position when right icon exists */
+.input.hasIconRight ~ .statusIndicators {
+  right: 2.5rem;
+}
+
+/* ===== STATE STYLES ===== */
+
+/* Normal State */
+.input {
+  border-color: var(--gray-200);
+}
+
+/* Focused State */
+.input.focused {
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 0.1875rem rgba(139, 94, 60, 0.1);
+}
+
+/* Error State */
+.input.error {
+  border-color: var(--state-error);
+  background-color: rgba(211, 47, 47, 0.02);
+}
+
+.input.error.focused {
+  border-color: var(--state-error);
+  box-shadow: 0 0 0 0.1875rem rgba(211, 47, 47, 0.1);
+}
+
+/* Success State */
+.input.success {
+  border-color: var(--state-success);
+  background-color: rgba(46, 125, 50, 0.02);
+}
+
+.input.success.focused {
+  border-color: var(--state-success);
+  box-shadow: 0 0 0 0.1875rem rgba(46, 125, 50, 0.1);
+}
+
+/* Warning State */
+.input.warning {
+  border-color: var(--state-warning);
+  background-color: rgba(251, 192, 45, 0.02);
+}
+
+.input.warning.focused {
+  border-color: var(--state-warning);
+  box-shadow: 0 0 0 0.1875rem rgba(251, 192, 45, 0.1);
+}
+
+/* Info State */
+.input.info {
+  border-color: var(--state-info);
+  background-color: rgba(2, 136, 209, 0.02);
+}
+
+.input.info.focused {
+  border-color: var(--state-info);
+  box-shadow: 0 0 0 0.1875rem rgba(2, 136, 209, 0.1);
+}
+
+/* Disabled State */
+.input.disabled {
+  background-color: var(--gray-200);
+  border-color: var(--gray-200);
+  cursor: not-allowed;
+  color: var(--gray-400);
+}
+
+/* ===== HELPER TEXT STYLES ===== */
+.helperContainer {
+  margin-top: var(--space-xs);
+  font-size: var(--text-meta-desktop);
+}
+
+.helperText {
+  color: var(--gray-300);
+  font-size: var(--text-meta-desktop);
+}
+
+.errorText {
+  color: var(--state-error);
+  font-size: var(--text-meta-desktop);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.successText {
+  color: var(--state-success);
+  font-size: var(--text-meta-desktop);
+}
+
+.warningText {
+  color: var(--state-warning);
+  font-size: var(--text-meta-desktop);
+}
+
+.infoText {
+  color: var(--state-info);
+  font-size: var(--text-meta-desktop);
+}
+
+/* ===== TEXTAREA SPECIFIC STYLES ===== */
+textarea.input {
+  resize: vertical;
+  min-height: 5rem;
+}
+
+textarea.input.medium {
+  min-height: 6rem;
+}
+
+textarea.input.small {
+  min-height: 4rem;
+}
+
+textarea.input.large {
+  min-height: 8rem;
+}
+
+/* ===== NUMBER INPUT SPECIFIC STYLES ===== */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0.5;
+  margin-left: var(--space-xs);
+}
+
+/* ===== ANIMATIONS ===== */
+.input {
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* ===== FOCUS VISIBLE FOR ACCESSIBILITY ===== */
+.input:focus-visible {
+  outline: 0.125rem solid var(--primary-500);
+  outline-offset: 0.125rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 40rem) {
+  .input.medium,
+  .input.small,
+  .input.large {
+    font-size: 1rem; /* Prevents zoom on mobile */
+  }
+  
+  .label {
+    font-size: 0.875rem;
+  }
+}
+
+/* ===== LOADING STATE (Optional) ===== */
+.input.loading {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ===== CHARACTER COUNTER (Optional) ===== */
+.charCounter {
+  position: absolute;
+  bottom: -1.5rem;
+  right: 0;
+  font-size: var(--text-meta-mobile);
+  color: var(--gray-300);
+}
+
+.charCounter.warning {
+  color: var(--state-warning);
+}
+
+.charCounter.error {
+  color: var(--state-error);
+}

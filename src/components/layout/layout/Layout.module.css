@@ -1,0 +1,33 @@
+/* Layout.module.css */
+@import '../../../styles/variables.css';
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--secondary-100);
+}
+
+.main {
+  flex: 1;
+  margin-top: 4.5rem; /* Height of fixed header */
+  padding: var(--space-2xl) 0;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet */
+@media (max-width: 48rem) {
+  .main {
+    margin-top: 4rem;
+    padding: var(--space-xl) 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 40rem) {
+  .main {
+    margin-top: 3.5rem;
+    padding: var(--space-lg) 0;
+  }
+}

@@ -1,0 +1,293 @@
+/* Button.module.css */
+@import '../styles/variables.css';
+
+/* Base button styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-secondary);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Full width modifier */
+.fullWidth {
+  width: 100%;
+}
+
+/* ===== BUTTON SIZES ===== */
+
+/* Medium (default) */
+.medium {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--text-price-desktop);
+  min-height: 2.5rem;
+}
+
+/* Small */
+.small {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-meta-desktop);
+  min-height: 2rem;
+}
+
+/* Large */
+.large {
+  padding: var(--space-md) var(--space-xl);
+  font-size: 1.125rem;
+  min-height: 3rem;
+}
+
+/* ===== PRIMARY BUTTON ===== */
+
+/* Primary - Normal State */
+.primary.normal {
+  background-color: var(--primary-500);
+  color: var(--gray-500);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Primary - Hover State */
+.primary.hover {
+  background-color: var(--primary-400);
+  color: var(--gray-500);
+  transform: translateY(-0.125rem);
+  box-shadow: var(--shadow-md);
+}
+
+/* Primary - Clicked State */
+.primary.clicked {
+  background-color: var(--primary-400);
+  color: var(--gray-500);
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+  animation: button-pop 0.15s ease-in-out;
+}
+
+/* Primary - Disabled State */
+.primary.disabled {
+  background-color: var(--primary-200);
+  color: var(--gray-300);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+/* ===== SECONDARY BUTTON ===== */
+
+/* Secondary - Normal State */
+.secondary.normal {
+  background-color: var(--secondary-500);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Secondary - Hover State */
+.secondary.hover {
+  background-color: var(--secondary-400);
+  color: white;
+  transform: translateY(-0.125rem);
+  box-shadow: var(--shadow-md);
+}
+
+/* Secondary - Clicked State */
+.secondary.clicked {
+  background-color: var(--secondary-400);
+  color: white;
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+  animation: button-pop 0.15s ease-in-out;
+}
+
+/* Secondary - Disabled State */
+.secondary.disabled {
+  background-color: var(--primary-200);
+  color: var(--gray-300);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+/* ===== TERTIARY BUTTON ===== */
+
+/* Tertiary - Normal State */
+.tertiary.normal {
+  background-color: transparent;
+  color: var(--primary-500);
+  border: 0.125rem solid var(--primary-500);
+  box-shadow: none;
+}
+
+/* Tertiary - Hover State */
+.tertiary.hover {
+  background-color: var(--primary-100);
+  color: var(--primary-600);
+  border-color: var(--primary-400);
+  transform: translateY(-0.125rem);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Tertiary - Clicked State */
+.tertiary.clicked {
+  background-color: var(--primary-200);
+  color: var(--primary-600);
+  border-color: var(--primary-500);
+  transform: translateY(0);
+  animation: button-pop 0.15s ease-in-out;
+}
+
+/* Tertiary - Disabled State */
+.tertiary.disabled {
+  background-color: transparent;
+  color: var(--gray-300);
+  border-color: var(--gray-200);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+/* ===== ICON STYLES ===== */
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125em;
+}
+
+/* Icon spacing based on button size */
+.button .icon + .label {
+  margin-left: var(--space-sm);
+}
+
+.small .icon + .label {
+  margin-left: var(--space-xs);
+}
+
+.large .icon + .label {
+  margin-left: var(--space-md);
+}
+
+/* Button with only icon */
+.button:has(.icon:only-child) {
+  padding: var(--space-sm);
+}
+
+.small:has(.icon:only-child) {
+  padding: var(--space-xs);
+}
+
+.large:has(.icon:only-child) {
+  padding: var(--space-md);
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes button-pop {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Ripple effect for clicked state */
+.button {
+  position: relative;
+  overflow: hidden;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.primary.clicked::after,
+.secondary.clicked::after {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.tertiary.clicked::after {
+  background-color: rgba(139, 94, 60, 0.1);
+}
+
+/* ===== FOCUS STATES FOR ACCESSIBILITY ===== */
+
+.button:focus-visible {
+  outline: 0.125rem solid var(--primary-500);
+  outline-offset: 0.125rem;
+}
+
+/* ===== ACTIVE STATES ===== */
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 40rem) {
+  .button {
+    width: 100%;
+  }
+  
+  .medium, .small, .large {
+    width: 100%;
+  }
+  
+  /* Buttons in a group on mobile */
+  .button-group .button {
+    width: auto;
+  }
+}
+
+/* ===== LOADING STATE (optional) ===== */
+
+.button.loading {
+  cursor: wait;
+  position: relative;
+  color: transparent !important;
+}
+
+.button.loading::before {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border: 0.125rem solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

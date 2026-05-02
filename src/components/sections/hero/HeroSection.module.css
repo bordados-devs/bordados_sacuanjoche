@@ -1,0 +1,372 @@
+/* HeroSection.module.css */
+@import '../../../styles/variables.css';
+
+.hero {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(135deg, var(--secondary-100) 0%, var(--primary-100) 100%);
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+/* ===== LEFT CONTENT ===== */
+.content {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.title {
+  font-family: var(--font-primary);
+  font-size: 3.5rem;
+  font-weight: var(--weight-bold);
+  color: var(--gray-500);
+  line-height: 1.2;
+  margin-bottom: var(--space-md);
+}
+
+.highlight {
+  color: var(--primary-500);
+  position: relative;
+  display: inline-block;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 0.25rem;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+  background-color: var(--secondary-500);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.subtitle {
+  font-family: var(--font-secondary);
+  font-size: 1.25rem;
+  color: var(--gray-400);
+  margin-bottom: var(--space-xl);
+  line-height: 1.5;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: var(--secondary-500);
+  color: var(--gray-500);
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-secondary);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-price-desktop);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: var(--space-2xl);
+}
+
+.ctaButton:hover {
+  background-color: var(--secondary-400);
+  transform: translateY(-0.125rem);
+  box-shadow: var(--shadow-md);
+}
+
+/* Features */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.featureIcon {
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--primary-100);
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-500);
+}
+
+.feature h3 {
+  font-family: var(--font-secondary);
+  font-size: var(--text-product-name-desktop);
+  font-weight: var(--weight-bold);
+  color: var(--gray-500);
+  margin-bottom: var(--space-xs);
+}
+
+.feature p {
+  font-family: var(--font-secondary);
+  font-size: var(--text-body-desktop);
+  color: var(--gray-400);
+}
+
+/* ===== PYRAMID CAROUSEL ===== */
+.carouselContainer {
+  position: relative;
+  perspective: 1000px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pyramidWrapper {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  will-change: transform;
+}
+
+.pyramid {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.imageCard {
+  position: absolute;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  background-color: var(--primary-100);
+}
+
+.imageCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-base);
+}
+
+.imageCard:hover img {
+  transform: scale(1.05);
+}
+
+.imageCard:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Top Image - Center top */
+.topImage {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  z-index: 3;
+}
+
+/* Left Image - Bottom left */
+.leftImage {
+  bottom: 0;
+  left: 0;
+  width: 180px;
+  height: 180px;
+  z-index: 2;
+}
+
+/* Right Image - Bottom right */
+.rightImage {
+  bottom: 0;
+  right: 0;
+  width: 180px;
+  height: 180px;
+  z-index: 1;
+}
+
+/* Timer Indicator */
+.timerIndicator {
+  margin-top: var(--space-2xl);
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+}
+
+.timerBar {
+  width: 100%;
+  height: 0.25rem;
+  background-color: var(--primary-200);
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+}
+
+.timerProgress {
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-500);
+  animation: timerProgress 15s linear infinite;
+}
+
+.timerText {
+  font-family: var(--font-secondary);
+  font-size: var(--text-meta-desktop);
+  color: var(--gray-300);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes timerProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 64rem) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .pyramid {
+    width: 350px;
+    height: 350px;
+  }
+  
+  .topImage {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .leftImage, .rightImage {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media (max-width: 40rem) {
+  .hero {
+    padding: var(--space-xl) 0;
+    min-height: auto;
+  }
+  
+  .container {
+    padding: 0 var(--space-md);
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .features {
+    gap: var(--space-md);
+  }
+  
+  .feature {
+    gap: var(--space-sm);
+  }
+  
+  .featureIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .featureIcon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .feature h3 {
+    font-size: 1rem;
+  }
+  
+  .feature p {
+    font-size: var(--text-body-mobile);
+  }
+  
+  .pyramid {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .topImage {
+    width: 130px;
+    height: 130px;
+  }
+  
+  .leftImage, .rightImage {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .ctaButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 24rem) {
+  .pyramid {
+    width: 240px;
+    height: 240px;
+  }
+  
+  .topImage {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .leftImage, .rightImage {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .pyramidWrapper {
+    transition: none;
+  }
+  
+  .timerProgress {
+    animation: none;
+  }
+}

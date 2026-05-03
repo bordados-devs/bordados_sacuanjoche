@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import HeroSection from '../../sections/hero/HeroSection'
 import styles from './Layout.module.css';
 
 const Layout = ({ children }) => {
@@ -9,7 +8,7 @@ const Layout = ({ children }) => {
     <div className={styles.layout}>
       <Header />
       <main className={styles.main}>
-        <HeroSection />
+        {children}  
       </main>
       <Footer />
     </div>

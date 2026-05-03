@@ -100,7 +100,6 @@ pids
 .nuxt
 
 # Gatsby build output
-/public
 
 # Storybook build outputs
 storybook-static

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ProductCard from './ProductCard';
 import ProductModal from './ProductModal';
 import { FiSliders, FiX } from 'react-icons/fi';
@@ -135,7 +135,7 @@ const products = [
   }
 ];
 
-const Catalogue = () => {
+const Catalogo = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [filter, setFilter] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
@@ -152,7 +152,6 @@ const Catalogue = () => {
 
   // Filter products
   const filteredProducts = products.filter(product => {
-    // Category filter only
     if (filter !== 'all' && product.category !== filter) return false;
     return true;
   });
@@ -289,6 +288,7 @@ const Catalogue = () => {
               key={product.id}
               product={product}
               onImageClick={() => setSelectedProduct(product)}
+              onQuickAdd={addToCart}
             />
           ))}
         </div>
@@ -314,4 +314,4 @@ const Catalogue = () => {
   );
 };
 
-export default Catalogue;
+export default Catalogo;

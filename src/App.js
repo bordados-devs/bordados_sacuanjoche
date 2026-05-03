@@ -5,6 +5,7 @@ import HeroSection from './components/sections/hero/HeroSection';
 import Catalogo from './pages/catalogo/Catalogo'; 
 import Personalizaciones from './pages/personalizaciones/Personalizaciones';
 import { CartProvider } from './context/CartContext.jsx';
+import Cart from './pages/carrito/Cart';
 import styles from './App.module.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<HeroSection />} />
             <Route path="/catalogo" element={<Catalogo />} /> 
             <Route path="/personalizaciones" element={<Personalizaciones />} />
+            <Route path="/carrito" element={<Cart />} />
             <Route path="/nosotros" element={
               <div className={styles.container}>
                 <h1>Nosotros</h1>

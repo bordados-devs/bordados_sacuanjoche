@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronRight, Sparkles, Clock, Palette } from 'lucide-react';
 import styles from './HeroSection.module.css';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const [rotation, setRotation] = useState(0);
   const [currentSet, setCurrentSet] = useState(1);
 
@@ -40,6 +42,11 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Navigate to catalog page
+  const goToCatalog = () => {
+    navigate('/catalogo');
+  };
+
   const currentImages = currentSet === 1 ? imageSet1 : imageSet2;
 
   return (
@@ -53,7 +60,7 @@ const HeroSection = () => {
           <p className={styles.subtitle}>
             Explora nuestros productos de alta calidad ideales para cada ocasión
           </p>
-          <button className={styles.ctaButton}>
+          <button className={styles.ctaButton} onClick={goToCatalog}>
             Explorar Catálogo
             <ChevronRight size={20} />
           </button>

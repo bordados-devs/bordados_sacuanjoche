@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiX, FiUpload, FiSend, FiFile, FiTrash2 } from 'react-icons/fi';
 import { toast, Toaster } from 'react-hot-toast';
+import emailjs from '@emailjs/browser';
 import styles from './Personalizaciones.module.css';
+
+
+const EMAILJS_CONFIG = {
+  publicKey: 'SaEkwZYdzopsEF3ao', 
+  serviceId: 'service_x34x32i',
+  templateId: 'template_u3elyaf' 
+};
 
 const Personalizaciones = () => {
   const navigate = useNavigate();
@@ -60,6 +68,16 @@ const Personalizaciones = () => {
     }));
   };
 
+  // Convert file to base64 for email attachment
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -91,22 +109,69 @@ const Personalizaciones = () => {
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
+    try {
+      // Initialize EmailJS
+      emailjs.init(EMAILJS_CONFIG.publicKey);
+      
+      // Prepare attachments info (without actual files to avoid size limits)
+      const attachmentsInfo = formData.attachments.length > 0 
+        ? formData.attachments.map(file => `${file.name} (${(file.size / 1024).toFixed(2)} KB)`).join('\n')
+        : 'No se adjuntaron archivos';
+      
+      // Prepare template parameters
+      const templateParams = {
+        to_name: 'Admin Bordados Personalizados',
+        from_name: formData.name,
+        from_email: `${formData.name}@cliente.com`, // EmailJS requires an email field
+        phone: formData.phone,
+        product_type: formData.productType,
+        quantity: formData.quantity,
+        required_date: formData.requiredDate,
+        description: formData.description,
+        additional_notes: formData.additionalNotes || 'Ninguna',
+        attachments: attachmentsInfo,
+        submission_date: new Date().toLocaleString('es-ES'),
+        message_id: `CUST-${Date.now()}`
+      };
+      
+      // Send email
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        templateParams
+      );
+      
+      console.log('Email sent successfully:', response);
       toast.success('¡Solicitud enviada con éxito! Nos contactaremos contigo pronto.');
-      setIsSubmitting(false);
+      
+      // Clear form after successful submission
+      setFormData({
+        productType: '',
+        quantity: '',
+        requiredDate: '',
+        description: '',
+        attachments: [],
+        name: '',
+        phone: '',
+        additionalNotes: ''
+      });
       
       // Redirect to home after 2 seconds
       setTimeout(() => {
         navigate('/');
       }, 2000);
-    }, 1500);
+      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast.error('Error al enviar la solicitud. Por favor intenta de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCancel = () => {
     if (window.confirm('¿Estás seguro de que deseas cancelar? Los cambios no se guardarán.')) {
-      navigate('/'); // Redirect to home
+      navigate('/');
     }
   };
 

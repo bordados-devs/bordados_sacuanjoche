@@ -89,7 +89,7 @@ const Cart = () => {
     message += '✨ *Gracias por su compra!* ✨';
 
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = '50512345678';
+    const phoneNumber = '50558315377';
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
   };
 

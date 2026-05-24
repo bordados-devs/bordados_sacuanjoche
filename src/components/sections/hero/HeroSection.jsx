@@ -8,41 +8,36 @@ const HeroSection = () => {
   const [rotation, setRotation] = useState(0);
   const [currentSet, setCurrentSet] = useState(1);
 
-  // First set of images - all using the same hero.jpg
   const imageSet1 = [
     { id: 1, src: '/assets/hero.jpg', alt: 'Bordado tradicional 1', position: 'top' },
     { id: 2, src: '/assets/hero.jpg', alt: 'Bordado tradicional 2', position: 'left' },
     { id: 3, src: '/assets/hero.jpg', alt: 'Bordado tradicional 3', position: 'right' },
   ];
 
-  // Second set of images - also using the same hero.jpg
   const imageSet2 = [
     { id: 4, src: '/assets/hero2.jpg', alt: 'Bordado tradicional 4', position: 'top' },
     { id: 5, src: '/assets/hero2.jpg', alt: 'Bordado tradicional 5', position: 'left' },
     { id: 6, src: '/assets/hero2.jpg', alt: 'Bordado tradicional 6', position: 'right' },
   ];
 
-  // Auto-rotate every 15 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      // Trigger rotation animation
       setRotation(prev => prev + 90);
       
-      // Change image set halfway through rotation
+    
       setTimeout(() => {
         setCurrentSet(prev => prev === 1 ? 2 : 1);
-        // Reset rotation after full rotation
+      
         setTimeout(() => {
           setRotation(0);
         }, 400);
       }, 200);
       
-    }, 15000); // 15 seconds
+    }, 15000); // 15 segundos
 
     return () => clearInterval(interval);
   }, []);
 
-  // Navigate to catalog page
   const goToCatalog = () => {
     navigate('/catalogo');
   };
@@ -52,7 +47,6 @@ const HeroSection = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.container}>
-        {/* Left Content */}
         <div className={styles.content}>
           <h1 className={styles.title}>
             Bordados que <span className={styles.highlight}>hacen la diferencia</span>
@@ -65,7 +59,6 @@ const HeroSection = () => {
             <ChevronRight size={20} />
           </button>
           
-          {/* Features */}
           <div className={styles.features}>
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
@@ -97,14 +90,13 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Right Pyramid Carousel */}
         <div className={styles.carouselContainer}>
           <div 
             className={styles.pyramidWrapper}
             style={{ transform: `rotateY(${rotation}deg)` }}
           >
             <div className={styles.pyramid}>
-              {/* Top Image */}
+
               <div className={`${styles.imageCard} ${styles.topImage}`}>
                 <img 
                   src={currentImages.find(img => img.position === 'top')?.src}
@@ -112,7 +104,7 @@ const HeroSection = () => {
                 />
               </div>
               
-              {/* Left Image */}
+          
               <div className={`${styles.imageCard} ${styles.leftImage}`}>
                 <img 
                   src={currentImages.find(img => img.position === 'left')?.src}
@@ -120,7 +112,7 @@ const HeroSection = () => {
                 />
               </div>
               
-              {/* Right Image */}
+     
               <div className={`${styles.imageCard} ${styles.rightImage}`}>
                 <img 
                   src={currentImages.find(img => img.position === 'right')?.src}
@@ -130,7 +122,7 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Timer Indicator */}
+       
           <div className={styles.timerIndicator}>
             <div className={styles.timerBar}>
               <div className={styles.timerProgress}></div>

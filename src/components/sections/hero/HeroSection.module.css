@@ -1,4 +1,4 @@
-/* HeroSection.module.css */
+
 @import '../../../styles/variables.css';
 
 .hero {
@@ -19,7 +19,7 @@
   align-items: center;
 }
 
-/* ===== LEFT CONTENT ===== */
+
 .content {
   animation: fadeInUp 0.6s ease-out;
 }
@@ -82,7 +82,6 @@
   box-shadow: var(--shadow-md);
 }
 
-/* Features */
 .features {
   display: flex;
   flex-direction: column;
@@ -120,7 +119,6 @@
   color: var(--gray-400);
 }
 
-/* ===== PYRAMID CAROUSEL ===== */
 .carouselContainer {
   position: relative;
   perspective: 1000px;
@@ -172,7 +170,7 @@
   box-shadow: var(--shadow-xl);
 }
 
-/* Top Image - Center top */
+
 .topImage {
   top: 0;
   left: 50%;
@@ -182,7 +180,7 @@
   z-index: 3;
 }
 
-/* Left Image - Bottom left */
+
 .leftImage {
   bottom: 0;
   left: 0;
@@ -191,7 +189,7 @@
   z-index: 2;
 }
 
-/* Right Image - Bottom right */
+
 .rightImage {
   bottom: 0;
   right: 0;
@@ -200,7 +198,6 @@
   z-index: 1;
 }
 
-/* Timer Indicator */
 .timerIndicator {
   margin-top: var(--space-2xl);
   width: 100%;
@@ -230,7 +227,6 @@
   color: var(--gray-300);
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -251,7 +247,6 @@
   }
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 64rem) {
   .container {
     grid-template-columns: 1fr;

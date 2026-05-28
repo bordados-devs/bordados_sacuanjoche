@@ -1,0 +1,116 @@
+/* components/ui/modals/Modal.module.css */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal, 1000);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modalContainer {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-xl);
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Modal sizes */
+.modalContainer.sm {
+  max-width: 400px;
+}
+
+.modalContainer.md {
+  max-width: 600px;
+}
+
+.modalContainer.lg {
+  max-width: 800px;
+}
+
+.modalContainer.xl {
+  max-width: 1000px;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.modalTitle {
+  font-family: var(--font-primary);
+  font-size: var(--text-h2-desktop);
+  color: var(--gray-500);
+  margin: 0;
+  font-weight: var(--weight-semibold);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-400);
+  transition: color var(--transition-fast);
+  padding: var(--space-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-full);
+}
+
+.closeButton:hover {
+  color: var(--state-error);
+  background-color: var(--gray-100);
+}
+
+.modalContent {
+  padding: var(--space-lg);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modalHeader {
+    padding: var(--space-md);
+  }
+  
+  .modalTitle {
+    font-size: var(--text-h2-mobile);
+  }
+  
+  .modalContent {
+    padding: var(--space-md);
+  }
+}

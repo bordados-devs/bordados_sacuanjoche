@@ -221,6 +221,57 @@
   animation: timerProgress 15s linear infinite;
 }
 
+/* Stats Section */
+.statsWrapper {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid rgba(139, 94, 60, 0.1);
+}
+
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  text-align: center;
+}
+
+.statItem {
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.statItem:nth-child(1) { animation-delay: 0.1s; }
+.statItem:nth-child(2) { animation-delay: 0.2s; }
+.statItem:nth-child(3) { animation-delay: 0.3s; }
+
+.statIcon {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto var(--space-sm);
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-400));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: var(--weight-bold);
+  color: var(--primary-500);
+  font-family: var(--font-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: var(--gray-400);
+  font-weight: var(--weight-medium);
+}
+
+
 .timerText {
   font-family: var(--font-secondary);
   font-size: var(--text-meta-desktop);

@@ -12,7 +12,6 @@ const Home = () => {
       <HeroSection />
       <AboutSection />
       <FeaturesSection />
-      <StatsSection />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/layout/Layout';
 import HeroSection from './components/sections/hero/HeroSection';
 import Catalogo from './pages/catalogo/Catalogo'; 
+import Home from './pages/home/Home';
 import Personalizaciones from './pages/personalizaciones/Personalizaciones';
 import { CartProvider } from './context/CartContext.jsx';
 import Cart from './pages/carrito/Cart';
@@ -14,6 +15,7 @@ function App() {
       <CartProvider>
         <Layout>
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/" element={<HeroSection />} />
             <Route path="/catalogo" element={<Catalogo />} /> 
             <Route path="/personalizaciones" element={<Personalizaciones />} />

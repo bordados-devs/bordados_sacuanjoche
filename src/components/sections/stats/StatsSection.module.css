@@ -1,0 +1,126 @@
+/* components/sections/stats/StatsSection.module.css */
+.statsSection {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-400));
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.statsSection::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+  animation: pulse 20s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-xl);
+  text-align: center;
+}
+
+.statCard {
+  padding: var(--space-lg);
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.statCard:nth-child(1) { animation-delay: 0.1s; }
+.statCard:nth-child(2) { animation-delay: 0.2s; }
+.statCard:nth-child(3) { animation-delay: 0.3s; }
+.statCard:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.statIcon {
+  margin-bottom: var(--space-md);
+  opacity: 0.9;
+  transform: scale(1);
+  transition: transform var(--transition-base);
+}
+
+.statCard:hover .statIcon {
+  transform: scale(1.1);
+}
+
+.statNumber {
+  font-size: 3.5rem;
+  font-weight: var(--weight-bold);
+  font-family: var(--font-primary);
+  margin-bottom: var(--space-sm);
+  letter-spacing: 2px;
+}
+
+.statLabel {
+  font-size: var(--text-body-desktop);
+  opacity: 0.9;
+  font-family: var(--font-secondary);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
+  
+  .statsSection {
+    padding: var(--space-2xl) 0;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+  
+  .statNumber {
+    font-size: 2.5rem;
+  }
+  
+  .statLabel {
+    font-size: var(--text-body-mobile);
+  }
+  
+  .statCard {
+    padding: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}

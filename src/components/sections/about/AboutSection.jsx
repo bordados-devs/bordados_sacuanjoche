@@ -1,4 +1,3 @@
-// components/sections/about/AboutSection.jsx (Corregido - Pausa funciona)
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, Award, Heart, Play, Pause, Volume2, VolumeX } from 'lucide-react';

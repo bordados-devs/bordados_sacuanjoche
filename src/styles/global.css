@@ -1,8 +1,7 @@
-/* global.css */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
 @import './variables.css';
 
-/* ===== RESET & BASE ===== */
+
 *,
 *::before,
 *::after {
@@ -28,7 +27,7 @@ body {
   font-size: var(--text-body-desktop);
 }
 
-/* ===== TYPOGRAPHY ===== */
+/* ===== TYPOGRAFIA ===== */
 
 /* Headings - Playfair Display */
 h1, .h1 {

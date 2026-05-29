@@ -103,37 +103,154 @@
   transform: translateX(5px);
 }
 
-.aboutImage {
-  position: relative;
+/* Video Styles */
+.aboutVideo {
   animation: fadeInRight 0.8s ease-out;
 }
 
-.imageGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-md);
+.videoWrapper {
+  position: relative;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  background: #000;
+  aspect-ratio: 16 / 9;
 }
 
-.gridImage1,
-.gridImage2,
-.gridImage3 {
+.video {
   width: 100%;
-  height: auto;
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Video Loading State */
+.videoLoading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  color: white;
+  z-index: 2;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--primary-500);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Video Controls */
+.videoControls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  padding: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: 3;
+}
+
+.videoWrapper:hover .videoControls {
+  opacity: 1;
+}
+
+.controlButton {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(4px);
+}
+
+.controlButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.progressBar {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: var(--border-radius-full);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--primary-500);
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* Play Overlay */
+.playOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: all var(--transition-base);
+  z-index: 2;
+}
+
+.playOverlay:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.playOverlay svg {
   transition: transform var(--transition-base);
 }
 
-.gridImage1 {
-  grid-column: span 2;
+.playOverlay:hover svg {
+  transform: scale(1.1);
 }
 
-.gridImage1:hover,
-.gridImage2:hover,
-.gridImage3:hover {
-  transform: scale(1.02);
+.videoCaption {
+  text-align: center;
+  margin-top: var(--space-md);
+  font-size: var(--text-meta-desktop);
+  color: var(--gray-400);
+  font-style: italic;
 }
 
+/* Animations */
 @keyframes fadeInLeft {
   from {
     opacity: 0;
@@ -156,14 +273,32 @@
   }
 }
 
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  .aboutContent,
+  .aboutVideo {
+    animation: none;
+  }
+  
+  .spinner {
+    animation: none;
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 1024px) {
   .aboutGrid {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
   }
   
-  .aboutImage {
+  .aboutVideo {
     order: -1;
+  }
+  
+  .videoWrapper {
+    max-width: 600px;
+    margin: 0 auto;
   }
 }
 
@@ -191,5 +326,36 @@
   .aboutHighlights {
     flex-direction: column;
     gap: var(--space-md);
+  }
+  
+  .videoControls {
+    opacity: 1;
+    padding: var(--space-sm);
+  }
+  
+  .controlButton {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .controlButton svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .videoCaption {
+    font-size: var(--text-meta-mobile);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .videoControls {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  }
+  
+  .controlButton {
+    background: rgba(0, 0, 0, 0.5);
   }
 }

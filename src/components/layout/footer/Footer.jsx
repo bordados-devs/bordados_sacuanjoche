@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// components/footer/Footer.jsx
+import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { 
   FaFacebook, 
@@ -30,12 +31,21 @@ const Footer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newsletterMessage, setNewsletterMessage] = useState({ type: '', text: '' });
 
-  // EmailJS configuration - Replace with your actual credentials
+  // EmailJS configuration - SOLO PARA NOTIFICACIONES
   const EMAILJS_CONFIG = {
-    PUBLIC_KEY: 'YOUR_PUBLIC_KEY', // Get from EmailJS dashboard
-    SERVICE_ID: 'YOUR_SERVICE_ID',
-    TEMPLATE_ID: 'YOUR_TEMPLATE_ID'
+    PUBLIC_KEY: 'SaEkwZYdzopsEF3ao',  
+    SERVICE_ID: 'service_x34x32i',     
+    NOTIFICATION_TEMPLATE_ID: 'template_g6f153a'  // Tu template de notificación
   };
+
+  // Tu email del negocio donde quieres recibir las notificaciones
+  const BUSINESS_EMAIL = 'tubusiness@email.com'; // ← CAMBIA ESTO POR TU EMAIL REAL
+
+  // Inicializar EmailJS
+  useEffect(() => {
+    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+    console.log('EmailJS initialized');
+  }, []);
 
   const quickLinks = [
     { label: 'Productos personalizados', id: 'custom-products', icon: FaShoppingBag, content: 'custom' },
@@ -107,39 +117,66 @@ const Footer = () => {
     const email = formData.get('email');
     const name = formData.get('name') || 'Cliente';
 
-    // Initialize EmailJS
-    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+    // Validar email
+    if (!email || !email.includes('@')) {
+      setNewsletterMessage({ 
+        type: 'error', 
+        text: 'Por favor ingresa un correo electrónico válido.' 
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
-    const templateParams = {
-      to_email: email,
-      from_name: 'Bordados Sacuanjoche',
-      to_name: name,
-      message: `¡Gracias por suscribirte a nuestro newsletter! Recibirás nuestras promociones exclusivas y novedades.`,
-      reply_to: email
+    // Parámetros para la notificación (solo para el negocio)
+    const notificationParams = {
+      to_email: BUSINESS_EMAIL,
+      subscriber_email: email,
+      subscriber_name: name,
+      subscription_date: new Date().toLocaleString('es-NI', {
+        dateStyle: 'full',
+        timeStyle: 'medium'
+      }),
+      site: 'Bordados Sacuanjoche'
     };
 
     try {
+      // Enviar solo notificación al negocio
       const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
-        EMAILJS_CONFIG.TEMPLATE_ID,
-        templateParams
+        EMAILJS_CONFIG.NOTIFICATION_TEMPLATE_ID,
+        notificationParams
       );
+      
+      console.log('Notificación enviada al negocio:', response);
       
       setNewsletterMessage({ 
         type: 'success', 
-        text: '¡Gracias por suscribirte! Recibirás nuestras promociones.' 
+        text: '¡Gracias por suscribirte! Pronto recibirás nuestras novedades.' 
       });
       e.target.reset();
       
-      // Clear success message after 5 seconds
+      // Limpiar mensaje después de 5 segundos
       setTimeout(() => {
         setNewsletterMessage({ type: '', text: '' });
       }, 5000);
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error al enviar notificación:', error);
+      
+      let errorMessage = 'Hubo un error al procesar tu suscripción. ';
+      
+      if (error.text === 'Network Error') {
+        errorMessage += 'Verifica tu conexión a internet.';
+      } else if (error.status === 401) {
+        errorMessage += 'Error de autenticación. Contacta al administrador.';
+      } else if (error.status === 404) {
+        errorMessage += 'Servicio no encontrado. Verifica la configuración.';
+      } else {
+        errorMessage += 'Por favor intenta nuevamente más tarde.';
+      }
+      
       setNewsletterMessage({ 
         type: 'error', 
-        text: 'Hubo un error al procesar tu suscripción. Por favor intenta nuevamente.' 
+        text: errorMessage
       });
     } finally {
       setIsSubmitting(false);

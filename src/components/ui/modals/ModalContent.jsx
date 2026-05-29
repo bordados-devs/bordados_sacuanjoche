@@ -131,13 +131,13 @@ export const CustomProductsContent = () => {
       </p>
       
       <h4>¿Qué podemos bordar?</h4>
-      <ul>
-        <li>👕 Camisas y blusas</li>
-        <li>👔 Uniformes corporativos</li>
-        <li>🎒 Mochilas y bolsos</li>
-        <li>🧣 Bufandas y accesorios</li>
-        <li>👶 Ropa de bebé</li>
-        <li>🏠 Toallas y textiles para el hogar</li>
+        <ul>
+        <li>🥾 Bordados personalizados para botas</li>
+        <li>✨ Diseños exclusivos y detallados</li>
+        <li>🎨 Bordados con logotipos, nombres o figuras</li>
+        <li>🧵 Acabados artesanales de alta calidad</li>
+        <li>🤠 Personalización para botas vaqueras y de trabajo</li>
+        <li>⭐ Diseños únicos adaptados a cada cliente</li>
       </ul>
       
       <h4>Proceso de personalización</h4>
@@ -151,7 +151,7 @@ export const CustomProductsContent = () => {
       
       <div className={styles.contactCTA}>
         <p>¿Listo para crear algo único?</p>
-        <a href="https://wa.me/505XXXXXXXX" className={styles.whatsappButton}>
+        <a href="https://wa.me/50587192899" className={styles.whatsappButton}>
           Contáctanos por WhatsApp
         </a>
       </div>

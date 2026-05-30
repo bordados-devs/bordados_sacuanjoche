@@ -13,7 +13,8 @@ const products = [
     description: 'Hermoso bordado floral con colores vibrantes, ideal para camisas y vestidos. Diseño tradicional hecho a mano con técnicas ancestrales.',
     shortDescription: 'Bordado floral con colores vibrantes',
     price: 25.99,
-    images: ['/assets/product1.jpg', '/assets/product1-2.jpg', '/assets/product1-3.jpg'],
+    images: ['/assets/imagenes/producto1/product1.jpg', 
+      '/assets/imagenes/producto1/product1-2.jpg', '/assets/imagenes/producto1/product1-3.jpg'],
     category: 'women',
     subcategory: 'Floral',
     sizes: ['Micro', 'Mediana', 'Grande'],
@@ -27,7 +28,8 @@ const products = [
     description: 'Inspirado en la cultura maya, este bordado geométrico representa la conexión con nuestras raíces.',
     shortDescription: 'Diseño geométrico inspirado en la cultura maya',
     price: 32.50,
-    images: ['/assets/product-2.jpg', '/assets/product2-1.jpg', '/assets/product2-3.jpg'],
+    images: ['/assets/imagenes/producto2/product-2.jpg', 
+      '/assets/imagenes/producto2/product2-1.jpg', '/assets/imagenes/producto2/product2-3.jpg'],
     category: 'men',
     subcategory: 'Geométrico',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
@@ -41,7 +43,8 @@ const products = [
     description: 'Detallado bordado de Flores de colores.',
     shortDescription: 'Flores con detalles en colores brillantes',
     price: 45.00,
-    images: ['/assets/product3.jpg', '/assets/product3-2.jpg', '/assets/product3-3.jpg'],
+    images: ['/assets/imagenes/producto3/product3.jpg', 
+      '/assets/imagenes/producto3/product3-2.jpg', '/assets/imagenes/producto3/product3-3.jpg'],
     category: 'women',
     subcategory: 'Animales',
     sizes: ['M', 'L', 'XL'],
@@ -55,7 +58,8 @@ const products = [
     description: 'Elegante diseño de bordados para botas, simbolizando libertad y transformación.',
     shortDescription: 'Borados en botas con detalles brillantes',
     price: 28.99,
-    images: ['/assets/product4-1.jpg', '/assets/product4-2.jpg', '/assets/product4-3.jpg'],
+    images: ['/assets/imagenes/producto4/product4-1.jpg',
+       '/assets/imagenes/producto4/product4-2.jpg', '/assets/imagenes/producto4/product4-3.jpg'],
     category: 'women',
     subcategory: 'Botas',
     sizes: ['38', '40', '41'],
@@ -142,12 +146,10 @@ const Catalogo = () => {
   const [sortBy, setSortBy] = useState('default');
 
   const categories = [
-    { id: 'all', label: 'Todos', icon: '🎨' },
-    { id: 'women', label: 'Mujer', icon: '👩' },
-    { id: 'men', label: 'Hombre', icon: '👨' },
-    { id: 'kids', label: 'Niños', icon: '👶' },
-    { id: 'girls', label: 'Niñas', icon: '👧' },
-    { id: 'personalization', label: 'Personalización', icon: '✨' }
+    { id: 'women', label: 'Mujer', icon: '' },
+    { id: 'men', label: 'Hombre', icon: '' },
+    { id: 'kids', label: 'Niños', icon: '' },
+    { id: 'personalization', label: 'Personalización', icon: '' }
   ];
 
   // Filter products

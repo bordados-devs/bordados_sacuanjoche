@@ -98,7 +98,7 @@ const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
         </div>
         
         <div className={styles.priceRow}>
-          <span className={styles.price}>${product.price.toFixed(2)}</span>
+          <span className={styles.price}>C${product.price.toFixed(2)}</span>
           <button 
             className={`${styles.quickAddBtn} ${isOutOfStock ? styles.disabledBtn : ''}`}
             onClick={handleQuickAddClick}

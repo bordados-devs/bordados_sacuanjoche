@@ -97,7 +97,7 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
           {/* Product Info */}
           <div className={styles.infoSection}>
             <h2 className={styles.productTitle}>{product.title}</h2>
-            <p className={styles.productPrice}>${product.price.toFixed(2)}</p>
+            <p className={styles.productPrice}>C${product.price.toFixed(2)}</p>
             
             <div className={styles.stockInfo}>
               {!isOutOfStock && product.stock > 10 ? (

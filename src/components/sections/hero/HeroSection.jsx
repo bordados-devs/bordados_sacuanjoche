@@ -28,7 +28,7 @@ const HeroSection = () => {
   const imageSet2 = useMemo(() => [
     { id: 4, src: '/assets/imagenes/secciones/hero/hero2.avif', alt: 'Bordado personalizado de alta calidad', position: 'top', priority: false },
     { id: 5, src: '/assets/imagenes/secciones/hero/hero3.avif', alt: 'Diseños exclusivos en bordado', position: 'left', priority: false },
-    { id: 6, src: '/assets/imagenes/secciones/hero/hero.', alt: 'Artesanía nicaragüense moderna', position: 'right', priority: false },
+    { id: 6, src: '/assets/imagenes/secciones/hero/hero.avif', alt: 'Artesanía nicaragüense moderna', position: 'right', priority: false },
   ], []);
 
   const statsData = [

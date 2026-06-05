@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag, User, Phone } from 'lucide-react';
+import { Menu, X, ShoppingBag, User, Phone, Sparkles, Package } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
 
@@ -15,7 +15,7 @@ const Header = () => {
     { id: 'inicio', label: 'Inicio', href: '/' },
     { id: 'catalogo', label: 'Catálogo', href: '/catalogo' },
     { id: 'nosotros', label: 'Nosotros', href: '/nosotros' },
-    { id: 'personalizaciones', label: 'Personalizaciones', href: '/personalizaciones' },
+    { id: 'personalizaciones', label: 'Solicita tu producto personalizado', href: '/personalizaciones', isButton: true },
   ];
 
   // Get cart count from localStorage
@@ -72,6 +72,11 @@ const Header = () => {
     navigate(href);
   };
 
+  // Handle admin login navigation
+  const handleAdminClick = () => {
+    navigate('/login');
+  };
+
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isMenuOpen) {
@@ -108,12 +113,22 @@ const Header = () => {
           <ul className={styles.navList}>
             {navLinks.map((link) => (
               <li key={link.id}>
-                <button
-                  className={`${styles.navLink} ${activeLink === link.id ? styles.active : ''}`}
-                  onClick={() => handleNavigate(link.href, link.id)}
-                >
-                  {link.label}
-                </button>
+                {link.isButton ? (
+                  <button
+                    className={`${styles.navButton} ${activeLink === link.id ? styles.active : ''}`}
+                    onClick={() => handleNavigate(link.href, link.id)}
+                  >
+                    <Sparkles size={16} />
+                    {link.label}
+                  </button>
+                ) : (
+                  <button
+                    className={`${styles.navLink} ${activeLink === link.id ? styles.active : ''}`}
+                    onClick={() => handleNavigate(link.href, link.id)}
+                  >
+                    {link.label}
+                  </button>
+                )}
               </li>
             ))}
           </ul>
@@ -121,12 +136,24 @@ const Header = () => {
 
         {/* Right side actions */}
         <div className={styles.actions}>
-          <button className={styles.iconButton} aria-label="Mi cuenta">
-            <User size={20} />
+          <button 
+            className={styles.iconButton} 
+            aria-label="Administrar stock"
+            onClick={handleAdminClick}
+            title="Administrar stock"
+          >
+            <Package size={20} />
+            <span className={styles.iconLabel}>Admin</span>
           </button>
-          <button className={styles.iconButton} aria-label="Carrito" onClick={goToCart}>
+          <button 
+            className={styles.iconButton} 
+            aria-label="Carrito de compras" 
+            onClick={goToCart}
+            title="Ir al carrito"
+          >
             <ShoppingBag size={20} />
             {cartCount > 0 && <span className={styles.cartBadge}>{cartCount}</span>}
+            <span className={styles.iconLabel}>Carrito</span>
           </button>
 
           {/* Mobile menu button */}
@@ -146,15 +173,39 @@ const Header = () => {
             <ul className={styles.mobileNavList}>
               {navLinks.map((link) => (
                 <li key={link.id}>
-                  <button
-                    className={`${styles.mobileNavLink} ${activeLink === link.id ? styles.active : ''}`}
-                    onClick={() => handleLinkClick(link.id, link.href)}
-                  >
-                    {link.label}
-                  </button>
+                  {link.isButton ? (
+                    <button
+                      className={`${styles.mobileNavButton} ${activeLink === link.id ? styles.active : ''}`}
+                      onClick={() => handleLinkClick(link.id, link.href)}
+                    >
+                      <Sparkles size={18} />
+                      {link.label}
+                    </button>
+                  ) : (
+                    <button
+                      className={`${styles.mobileNavLink} ${activeLink === link.id ? styles.active : ''}`}
+                      onClick={() => handleLinkClick(link.id, link.href)}
+                    >
+                      {link.label}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
+            
+            {/* Mobile additional actions */}
+            <div className={styles.mobileActions}>
+              <button 
+                className={styles.mobileAdminBtn}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  handleAdminClick();
+                }}
+              >
+                <Package size={20} />
+                Administrar stock
+              </button>
+            </div>
           </div>
         </div>
       </div>

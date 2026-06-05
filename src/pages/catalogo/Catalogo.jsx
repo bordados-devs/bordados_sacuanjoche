@@ -10,10 +10,10 @@ const products = [
   {
     id: 1,
     title: 'Bordado Floral Tradicional',
-    description: 'Hermoso bordado floral con colores vibrantes, ideal para camisas y vestidos. Diseño tradicional hecho a mano con técnicas ancestrales.',
+    description: 'Hermoso bordado floral con colores vibrantes, ideal para botas. Diseño tradicional hecho a mano con técnicas ancestrales.',
     shortDescription: 'Bordado floral con colores vibrantes',
     price: 25.99,
-    images: ['/assets/imagenes/producto1/product1.jpg', 
+    images: ['/assets/imagenes/producto1/product1-1.avif', 
       '/assets/imagenes/producto1/product1-2.jpg', '/assets/imagenes/producto1/product1-3.jpg'],
     category: 'women',
     subcategory: 'Floral',

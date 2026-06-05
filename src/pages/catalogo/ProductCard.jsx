@@ -5,7 +5,6 @@ import styles from './ProductCard.module.css';
 
 const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
   const [showQuickAdd, setShowQuickAdd] = useState(false);
-  const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
 
@@ -19,10 +18,6 @@ const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
       return;
     }
     
-    if (!selectedSize) {
-      toast.error('Por favor selecciona una talla');
-      return;
-    }
     if (!selectedColor) {
       toast.error('Por favor selecciona un color');
       return;
@@ -32,9 +27,8 @@ const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
       return;
     }
     
-    onQuickAdd(product, selectedSize, selectedColor, quantity);
+    onQuickAdd(product, 'Única', selectedColor, quantity);
     setShowQuickAdd(false);
-    setSelectedSize('');
     setSelectedColor('');
     setQuantity(1);
   };
@@ -124,20 +118,7 @@ const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
             )}
             
             <div className={styles.quickAddOptions}>
-              <div className={styles.quickAddGroup}>
-                <label>Talla <span className={styles.required}>*</span></label>
-                <div className={styles.quickAddSizes}>
-                  {product.sizes.map(size => (
-                    <button
-                      key={size}
-                      className={`${styles.quickAddSizeBtn} ${selectedSize === size ? styles.selected : ''}`}
-                      onClick={() => setSelectedSize(size)}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              {/* Size section removed - now using single size */}
 
               <div className={styles.quickAddGroup}>
                 <label>Color <span className={styles.required}>*</span></label>
@@ -183,9 +164,9 @@ const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
               <button 
                 onClick={handleQuickAdd} 
                 className={styles.addBtn}
-                disabled={!selectedSize || !selectedColor}
+                disabled={!selectedColor}
               >
-                Agregar - ${(product.price * quantity).toFixed(2)}
+                Agregar - C${(product.price * quantity).toFixed(2)}
               </button>
             </div>
           </div>

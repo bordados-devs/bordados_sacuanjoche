@@ -20,15 +20,15 @@ const HeroSection = () => {
 
   // Imágenes optimizadas - Sin tamaños fijos para mantener el layout
   const imageSet1 = useMemo(() => [
-    { id: 1, src: '/assets/imagenes/secciones/hero/hero.avif', alt: 'Bordado tradicional - arte textil nicaragüense', position: 'top', priority: true },
+    { id: 1, src: '/assets/imagenes/secciones/hero/hero-principal.avif', alt: 'Bordado tradicional - arte textil nicaragüense', position: 'top', priority: true },
     { id: 2, src: '/assets/imagenes/secciones/hero/hero2.avif', alt: 'Detalle de bordado artesanal', position: 'left', priority: false },
     { id: 3, src: '/assets/imagenes/secciones/hero/hero3.avif', alt: 'Arte en bordado tradicional', position: 'right', priority: false },
   ], []);
 
   const imageSet2 = useMemo(() => [
-    { id: 4, src: '/assets/imagenes/secciones/hero/hero2.avif', alt: 'Bordado personalizado de alta calidad', position: 'top', priority: false },
+    { id: 4, src: '/assets/imagenes/secciones/hero/hero.avif', alt: 'Bordado personalizado de alta calidad', position: 'top', priority: false },
     { id: 5, src: '/assets/imagenes/secciones/hero/hero3.avif', alt: 'Diseños exclusivos en bordado', position: 'left', priority: false },
-    { id: 6, src: '/assets/imagenes/secciones/hero/hero.avif', alt: 'Artesanía nicaragüense moderna', position: 'right', priority: false },
+    { id: 6, src: '/assets/imagenes/secciones/hero/hero2.avif', alt: 'Artesanía nicaragüense moderna', position: 'right', priority: false },
   ], []);
 
   const statsData = [

@@ -14,7 +14,7 @@ const Header = () => {
   const navLinks = [
     { id: 'inicio', label: 'Inicio', href: '/' },
     { id: 'catalogo', label: 'Catálogo', href: '/catalogo' },
-    { id: 'nosotros', label: 'Nosotros', href: '/nosotros' },
+    { id: 'nosotros', label: 'Nosotros', href: '/about' },
     { id: 'personalizaciones', label: 'Solicita tu producto personalizado', href: '/personalizaciones', isButton: true },
   ];
 

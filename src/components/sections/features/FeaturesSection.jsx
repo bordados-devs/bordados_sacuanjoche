@@ -86,7 +86,7 @@ const FeaturesSection = () => {
             Razones para <span className={styles.highlight}>confiar en nosotros</span>
           </h2>
           <p className={styles.sectionSubtitle}>
-            Calidad, tradición y servicio excepcional nos respaldan
+            Calidad y servicio excepcional nos respaldan
           </p>
         </div>
         

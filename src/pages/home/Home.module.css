@@ -3,8 +3,8 @@
   overflow-x: hidden;
 }
 
-/* Background Flowers */
-.flowerBackground {
+/* Mixed Background Elements */
+.backgroundElements {
   position: fixed;
   top: 0;
   left: 0;
@@ -15,26 +15,56 @@
   overflow: hidden;
 }
 
-.backgroundFlower {
+.backgroundElement {
   position: absolute;
   pointer-events: none;
-  opacity: 0.08;
-  animation: floatFlower linear infinite;
-  filter: blur(0.5px);
+  animation: floatElement linear infinite;
+  filter: blur(0.3px);
+  transition: all 0.3s ease;
 }
 
-@keyframes floatFlower {
+.backgroundElement.feminine {
+  color: #E74C3C;
+  text-shadow: 0 0 5px rgba(231, 76, 60, 0.3);
+}
+
+.backgroundElement.masculine {
+  color: #3498DB;
+  text-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+.backgroundElement.neutral {
+  color: #8B5E3C;
+  text-shadow: 0 0 5px rgba(139, 94, 60, 0.3);
+}
+
+/* Different animation speeds for masculine/feminine elements */
+.backgroundElement.feminine {
+  animation-duration: 15s;
+}
+
+.backgroundElement.masculine {
+  animation-duration: 12s;
+  animation-direction: alternate;
+}
+
+@keyframes floatElement {
   0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.08;
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.1;
   }
   50% {
-    transform: translateY(-50px) rotate(180deg);
-    opacity: 0.12;
+    transform: translateY(-50px) translateX(20px) rotate(180deg);
+  }
+  90% {
+    opacity: 0.1;
   }
   100% {
-    transform: translateY(-100px) rotate(360deg);
-    opacity: 0.08;
+    transform: translateY(-100px) translateX(-20px) rotate(360deg);
+    opacity: 0;
   }
 }
 
@@ -47,7 +77,7 @@
   height: 150px;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.15;
+  opacity: 0.2;
   animation: threadMove 8s ease-in-out infinite;
 }
 
@@ -75,23 +105,80 @@
   }
 }
 
+/* Masculine Workshop Decoration */
+.masculineDecoration {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.15;
+  animation: toolFloat 10s ease-in-out infinite;
+}
+
+.toolsSvg {
+  width: 100%;
+  height: 100%;
+  animation: toolRotate 12s linear infinite;
+}
+
+@keyframes toolFloat {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-10px, -10px);
+  }
+}
+
+@keyframes toolRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
-  .backgroundFlower {
-    opacity: 0.04;
+  .backgroundElement {
+    opacity: 0.05;
   }
   
   .embroideryThread {
     width: 80px;
     height: 80px;
-    opacity: 0.1;
+    opacity: 0.15;
+  }
+  
+  .masculineDecoration {
+    width: 60px;
+    height: 60px;
+    opacity: 0.12;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .backgroundFlower,
+@media (max-width: 480px) {
+  .backgroundElement {
+    display: none;
+  }
+  
   .embroideryThread,
-  .threadSvg {
+  .masculineDecoration {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .backgroundElement,
+  .embroideryThread,
+  .masculineDecoration,
+  .threadSvg,
+  .toolsSvg {
     animation: none;
     display: none;
   }

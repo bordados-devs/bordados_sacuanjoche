@@ -124,7 +124,7 @@ const AboutSection = () => {
               </div>
             </div>
 
-            <button className={styles.aboutButton} onClick={() => navigate('/nosotros')}>
+            <button className={styles.aboutButton} onClick={() => navigate('/about')}>
               Conoce más sobre nosotros
               <ChevronRight size={20} />
             </button>

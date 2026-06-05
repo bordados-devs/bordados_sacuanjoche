@@ -10,6 +10,7 @@ import Login from './pages/login/Login';
 import Inventory from './pages/admin/Inventory';
 import { CartProvider } from './context/CartContext.jsx';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import AboutUs from './pages/about/AboutUs';
 import styles from './App.module.css';
 
 // Protected Route Component
@@ -30,6 +31,7 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/catalogo" element={<Catalogo />} /> 
         <Route path="/personalizaciones" element={<Personalizaciones />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/carrito" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route 

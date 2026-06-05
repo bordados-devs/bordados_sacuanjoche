@@ -1,4 +1,3 @@
-// components/sections/hero/HeroSection.jsx
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, Sparkles, Clock, Palette, Users, Truck, Heart } from 'lucide-react';
@@ -17,8 +16,26 @@ const HeroSection = () => {
   });
   const animationRef = useRef(null);
   const timeoutRef = useRef(null);
+  const [floatingElements, setFloatingElements] = useState([]);
 
-  // Imágenes optimizadas - Sin tamaños fijos para mantener el layout
+  // Generate floating flowers and embroidery elements
+  useEffect(() => {
+    const elements = [
+      { id: 1, icon: '🌸', left: '10%', top: '20%', duration: '12s', delay: '0s', size: '1.5rem' },
+      { id: 2, icon: '🌼', left: '85%', top: '15%', duration: '15s', delay: '2s', size: '1.8rem' },
+      { id: 3, icon: '🌺', left: '20%', top: '70%', duration: '18s', delay: '1s', size: '1.3rem' },
+      { id: 4, icon: '🌻', left: '75%', top: '80%', duration: '14s', delay: '3s', size: '1.6rem' },
+      { id: 5, icon: '🪡', left: '5%', top: '40%', duration: '20s', delay: '5s', size: '2rem' },
+      { id: 6, icon: '🧵', left: '92%', top: '50%', duration: '17s', delay: '1.5s', size: '1.8rem' },
+      { id: 7, icon: '🌸', left: '30%', top: '10%', duration: '13s', delay: '4s', size: '1.2rem' },
+      { id: 8, icon: '🌷', left: '60%', top: '85%', duration: '16s', delay: '2.5s', size: '1.4rem' },
+      { id: 9, icon: '🪡', left: '15%', top: '60%', duration: '19s', delay: '6s', size: '1.5rem' },
+      { id: 10, icon: '🌼', left: '88%', top: '30%', duration: '11s', delay: '3.5s', size: '1.7rem' },
+    ];
+    setFloatingElements(elements);
+  }, []);
+
+  // Imágenes optimizadas
   const imageSet1 = useMemo(() => [
     { id: 1, src: '/assets/imagenes/secciones/hero/hero-principal.avif', alt: 'Bordado tradicional - arte textil nicaragüense', position: 'top', priority: true },
     { id: 2, src: '/assets/imagenes/secciones/hero/hero2.avif', alt: 'Detalle de bordado artesanal', position: 'left', priority: false },
@@ -123,6 +140,25 @@ const HeroSection = () => {
 
   return (
     <section className={styles.hero}>
+      {/* Floating Elements */}
+      <div className={styles.floatingContainer}>
+        {floatingElements.map((el) => (
+          <div
+            key={el.id}
+            className={styles.floatingItem}
+            style={{
+              left: el.left,
+              top: el.top,
+              animationDuration: el.duration,
+              animationDelay: el.delay,
+              fontSize: el.size
+            }}
+          >
+            {el.icon}
+          </div>
+        ))}
+      </div>
+
       <div className={styles.container}>
         <div className={styles.content}>
           <h1 className={styles.title}>
@@ -229,8 +265,6 @@ const HeroSection = () => {
               ))}
             </div>
           </div>
-          
-         
         </div>
       </div>
     </section>

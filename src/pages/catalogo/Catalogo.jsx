@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import ProductModal from './ProductModal';
-import { FiSliders, FiX } from 'react-icons/fi';
+import { FiSliders, FiX, FiChevronDown, FiFilter, FiUser, FiUsers, FiSmile, FiTag, FiDollarSign, FiArrowUp, FiArrowDown, FiType } from 'react-icons/fi';
+import { GiPalmTree, GiFamilyHouse, GiBabyFace, GiTeacher, GiCommercialAirplane } from 'react-icons/gi';
+import { FaChild, FaFemale, FaMale } from 'react-icons/fa';
 import { toast, Toaster } from 'react-hot-toast';
 import styles from './Catalogo.module.css';
 
@@ -52,22 +54,20 @@ const products = [
     stock: 5,
     gender: 'Mujer'
   },
-
-   {
+  {
     id: 4,
     title: 'Bordado Hollywood',
     description: 'Diseños especiales.',
     shortDescription: 'Diseños especiales a como el cliente lo solicita',
     price: 22.50,
     images: ['/assets/imagenes/producto7/product7.avif', '/assets/product6-2.jpg', '/assets/product6-3.jpg'],
-    category: 'personalizado',
+    category: 'kids',
     subcategory: 'Temporada',
     sizes: ['Único'],
     colors: ['Rojo', 'Verde', 'Dorado'],
     stock: 20,
-    gender: 'Personalizado'
+    gender: 'Niños'
   },
-  
   {
     id: 5,
     title: 'Bordado de Flores de Sacuanjoche',
@@ -75,31 +75,28 @@ const products = [
     shortDescription: 'Flor nacional de Nicaragua bordada con detalles',
     price: 38.99,
     images: ['/assets/imagenes/producto5/product5.avif', '/assets/product5-2.jpg', '/assets/product5-3.jpg'],
-    category: 'personalization',
+    category: 'women',
     subcategory: 'Floral',
     sizes: ['S', 'M', 'L', 'XL'],
     colors: ['Amarillo', 'Blanco', 'Naranja'],
     stock: 10,
-    gender: 'Personalizado'
+    gender: 'Mujer'
   },
-
   {
     id: 6,
     title: 'Bordado Botas',
     description: 'Elegante diseño de bordados para botas, simbolizando libertad y transformación.',
     shortDescription: 'Borados en botas con detalles brillantes',
     price: 28.99,
-    images: ['/assets/imagenes/producto6/product6.avif',
-       '/assets/imagenes/producto5/product5.avif', '/assets/imagenes/producto4/product4.avif'],
+    images: ['/assets/imagenes/producto6/producto6.avif',
+       '/assets/imagenes/producto6/product6.avif', '/assets/imagenes/producto4/product4.avif'],
     category: 'women',
     subcategory: 'Botas',
     sizes: ['38', '40', '41'],
     colors: ['Cafe', 'Negra', 'Ariat'],
     stock: 12,
-    gender: 'Mujeres'
+    gender: 'Mujer'
   },
-
-  
   {
     id: 8,
     title: 'Bordado Personalizado Iniciales',
@@ -107,12 +104,12 @@ const products = [
     shortDescription: 'Diseño personalizado con iniciales',
     price: 120.00,
     images: ['/assets/imagenes/producto9/product9.avif', '/assets/product8-2.jpg', '/assets/product8-3.jpg'],
-    category: 'personalization',
+    category: 'kids',
     subcategory: 'Personalizado',
     sizes: ['S', 'M', 'L'],
     colors: ['Oro', 'Plata', 'Negro'],
     stock: 25,
-    gender: 'Personalizado'
+    gender: 'Niños'
   },
   {
     id: 9,
@@ -135,12 +132,31 @@ const Catalogo = () => {
   const [filter, setFilter] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState('default');
+  const [floatingElements, setFloatingElements] = useState([]);
+  const [isFilterExpanded, setIsFilterExpanded] = useState(false);
 
+  // Generate random floating elements
+  useEffect(() => {
+    const flowers = ['🌸', '🌼', '🌺', '🌻', '🪷', '🌷', '🌸', '🌼'];
+    const elements = [];
+    for (let i = 0; i < 24; i++) {
+      elements.push({
+        id: i,
+        icon: flowers[Math.floor(Math.random() * flowers.length)],
+        left: Math.random() * 100,
+        animationDuration: 8 + Math.random() * 10,
+        animationDelay: Math.random() * 15,
+        size: 0.8 + Math.random() * 0.7
+      });
+    }
+    setFloatingElements(elements);
+  }, []);
+
+  // Categories with React Icons
   const categories = [
-    { id: 'women', label: 'Mujer', icon: '' },
-    { id: 'men', label: 'Hombre', icon: '' },
-    { id: 'kids', label: 'Niños', icon: '' },
-    { id: 'personalization', label: 'Personalización', icon: '' }
+    { id: 'women', label: 'Mujer', icon: <FaFemale size={16} />, emojiIcon: '👩' },
+    { id: 'men', label: 'Hombre', icon: <FaMale size={16} />, emojiIcon: '👨' },
+    { id: 'kids', label: 'Niños', icon: <FaChild size={16} />, emojiIcon: '👶' }
   ];
 
   // Filter products
@@ -191,8 +207,34 @@ const Catalogo = () => {
     toast('Filtros restablecidos', { icon: '🔄' });
   };
 
+  const getActiveFilterCount = () => {
+    let count = 0;
+    if (filter !== 'all') count++;
+    if (sortBy !== 'default') count++;
+    return count;
+  };
+
   return (
     <div className={styles.catalogue}>
+      {/* Floating Background Elements */}
+      <div className={styles.floatingContainer}>
+        {floatingElements.map((el) => (
+          <div
+            key={el.id}
+            className={styles.floatingElement}
+            style={{
+              left: `${el.left}%`,
+              animationDuration: `${el.animationDuration}s`,
+              animationDelay: `${el.animationDelay}s`,
+              fontSize: `${el.size}rem`,
+              opacity: 0.15
+            }}
+          >
+            {el.icon}
+          </div>
+        ))}
+      </div>
+
       <Toaster 
         position="bottom-right"
         toastOptions={{
@@ -217,58 +259,115 @@ const Catalogo = () => {
       
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>Nuestro Catálogo</h1>
+          <div className={styles.headerDecoration}>
+            <span className={styles.decorationLeft}>🌺</span>
+            <h1 className={styles.title}>Nuestro Catálogo</h1>
+            <span className={styles.decorationRight}>🌻</span>
+          </div>
           <p className={styles.subtitle}>
             Descubre nuestra colección de bordados hechos a mano con amor y dedicación
           </p>
         </div>
 
-        <button 
-          className={styles.mobileFilterToggle}
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          <FiSliders size={20} />
-          Filtros y ordenar
-        </button>
-
-        <div className={`${styles.filtersSection} ${showFilters ? styles.show : ''}`}>
-          <div className={styles.filtersHeader}>
-            <h3>Filtros</h3>
-            <button onClick={clearFilters} className={styles.clearFilters}>
-              <FiX size={16} />
-              Limpiar
-            </button>
-          </div>
-
-          <div className={styles.filterGroup}>
-            <h4>Categorías</h4>
-            <div className={styles.categories}>
-              {categories.map(cat => (
-                <button
-                  key={cat.id}
-                  className={`${styles.categoryBtn} ${filter === cat.id ? styles.active : ''}`}
-                  onClick={() => setFilter(cat.id)}
-                >
-                  <span className={styles.categoryIcon}>{cat.icon}</span>
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.filterGroup}>
-            <h4>Ordenar por</h4>
-            <select 
-              className={styles.sortSelect}
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+        {/* Dynamic Filter Bar - Compact */}
+        <div className={styles.filterBar}>
+          <div className={styles.filterBarHeader}>
+            <button 
+              className={styles.filterToggleBtn}
+              onClick={() => setIsFilterExpanded(!isFilterExpanded)}
             >
-              <option value="default">Relevancia</option>
-              <option value="price-asc">Precio: menor a mayor</option>
-              <option value="price-desc">Precio: mayor a menor</option>
-              <option value="name-asc">Nombre: A - Z</option>
-            </select>
+              <FiFilter size={18} />
+              <span>Filtrar</span>
+              {getActiveFilterCount() > 0 && (
+                <span className={styles.filterBadge}>{getActiveFilterCount()}</span>
+              )}
+              <FiChevronDown className={`${styles.filterArrow} ${isFilterExpanded ? styles.rotated : ''}`} />
+            </button>
+            
+            <div className={styles.activeFilters}>
+              {filter !== 'all' && (
+                <span className={styles.activeFilter}>
+                  {categories.find(c => c.id === filter)?.icon}
+                  {categories.find(c => c.id === filter)?.label}
+                  <button onClick={() => setFilter('all')}>×</button>
+                </span>
+              )}
+              {sortBy !== 'default' && (
+                <span className={styles.activeFilter}>
+                  {sortBy === 'price-asc' ? <><FiDollarSign size={12} /> Menor precio</> : 
+                   sortBy === 'price-desc' ? <><FiDollarSign size={12} /> Mayor precio</> :
+                   <><FiType size={12} /> A - Z</>}
+                  <button onClick={() => setSortBy('default')}>×</button>
+                </span>
+              )}
+            </div>
+            
+            {(filter !== 'all' || sortBy !== 'default') && (
+              <button onClick={clearFilters} className={styles.clearAllBtn}>
+                Limpiar todo
+              </button>
+            )}
           </div>
+
+          {isFilterExpanded && (
+            <div className={styles.filterExpanded}>
+              <div className={styles.filterRow}>
+                <span className={styles.filterLabel}>Categoría</span>
+                <div className={styles.categoryChips}>
+                  <button
+                    className={`${styles.chip} ${filter === 'all' ? styles.activeChip : ''}`}
+                    onClick={() => setFilter('all')}
+                  >
+                    <FiTag size={14} />
+                    <span>Todos</span>
+                  </button>
+                  {categories.map(cat => (
+                    <button
+                      key={cat.id}
+                      className={`${styles.chip} ${filter === cat.id ? styles.activeChip : ''}`}
+                      onClick={() => setFilter(cat.id)}
+                    >
+                      {cat.icon}
+                      <span>{cat.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.filterRow}>
+                <span className={styles.filterLabel}>Ordenar por</span>
+                <div className={styles.sortOptions}>
+                  <button
+                    className={`${styles.sortChip} ${sortBy === 'default' ? styles.activeSort : ''}`}
+                    onClick={() => setSortBy('default')}
+                  >
+                    Relevancia
+                  </button>
+                  <button
+                    className={`${styles.sortChip} ${sortBy === 'price-asc' ? styles.activeSort : ''}`}
+                    onClick={() => setSortBy('price-asc')}
+                  >
+                    <FiArrowUp size={12} />
+                    Menor precio
+                  </button>
+                  <button
+                    className={`${styles.sortChip} ${sortBy === 'price-desc' ? styles.activeSort : ''}`}
+                    onClick={() => setSortBy('price-desc')}
+                  >
+                    <FiArrowDown size={12} />
+                    Mayor precio
+                  </button>
+                  <button
+                    className={`${styles.sortChip} ${sortBy === 'name-asc' ? styles.activeSort : ''}`}
+                    onClick={() => setSortBy('name-asc')}
+                  >
+                    <FiType size={12} />
+                    A - Z
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className={styles.resultsCount}>

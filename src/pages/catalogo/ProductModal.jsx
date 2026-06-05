@@ -10,6 +10,9 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
 
+  // Check if product is out of stock
+  const isOutOfStock = product.stock === 0 || product.status === 'agotado';
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -25,21 +28,27 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
     setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
   };
 
-
-
-const handleAddToCart = () => {
-  if (!selectedSize) {
-    toast.error('Por favor selecciona una talla');
-    return;
-  }
-  if (!selectedColor) {
-    toast.error('Por favor selecciona un color');
-    return;
-  }
-  onAddToCart(product, selectedSize, selectedColor, quantity);
-  setAddedToCart(true);
-  setTimeout(() => setAddedToCart(false), 2000);
-};
+  const handleAddToCart = () => {
+    if (isOutOfStock) {
+      toast.error('Producto agotado. No disponible para la venta');
+      return;
+    }
+    if (!selectedSize) {
+      toast.error('Por favor selecciona una talla');
+      return;
+    }
+    if (!selectedColor) {
+      toast.error('Por favor selecciona un color');
+      return;
+    }
+    if (quantity > product.stock) {
+      toast.error(`Solo tenemos ${product.stock} unidades disponibles`);
+      return;
+    }
+    onAddToCart(product, selectedSize, selectedColor, quantity);
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
 
   const decreaseQuantity = () => {
     if (quantity > 1) setQuantity(prev => prev - 1);
@@ -91,10 +100,10 @@ const handleAddToCart = () => {
             <p className={styles.productPrice}>${product.price.toFixed(2)}</p>
             
             <div className={styles.stockInfo}>
-              {product.stock > 10 ? (
-                <span className={styles.inStock}>✓ En stock</span>
-              ) : product.stock > 0 ? (
-                <span className={styles.lowStock}>⚠️ Solo {product.stock} unidades disponibles</span>
+              {!isOutOfStock && product.stock > 10 ? (
+                <span className={styles.inStock}>✓ En stock ({product.stock} unidades)</span>
+              ) : !isOutOfStock && product.stock > 0 ? (
+                <span className={styles.lowStock}>⚠️ ¡Solo {product.stock} unidades disponibles! Apresúrate</span>
               ) : (
                 <span className={styles.outOfStock}>✗ Agotado</span>
               )}
@@ -105,60 +114,64 @@ const handleAddToCart = () => {
               <p>{product.description}</p>
             </div>
 
-            {/* Size Selection */}
-            <div className={styles.options}>
-              <h3>Talla</h3>
-              <div className={styles.sizeOptions}>
-                {product.sizes.map(size => (
-                  <button
-                    key={size}
-                    className={`${styles.sizeBtn} ${selectedSize === size ? styles.selected : ''}`}
-                    onClick={() => setSelectedSize(size)}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {/* Size Selection - Only show if not out of stock */}
+            {!isOutOfStock && (
+              <>
+                <div className={styles.options}>
+                  <h3>Talla</h3>
+                  <div className={styles.sizeOptions}>
+                    {product.sizes.map(size => (
+                      <button
+                        key={size}
+                        className={`${styles.sizeBtn} ${selectedSize === size ? styles.selected : ''}`}
+                        onClick={() => setSelectedSize(size)}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-            {/* Color Selection */}
-            <div className={styles.options}>
-              <h3>Color</h3>
-              <div className={styles.colorOptions}>
-                {product.colors.map(color => (
-                  <button
-                    key={color}
-                    className={`${styles.colorBtn} ${selectedColor === color ? styles.selected : ''}`}
-                    onClick={() => setSelectedColor(color)}
-                  >
-                    {color}
-                  </button>
-                ))}
-              </div>
-            </div>
+                {/* Color Selection */}
+                <div className={styles.options}>
+                  <h3>Color</h3>
+                  <div className={styles.colorOptions}>
+                    {product.colors.map(color => (
+                      <button
+                        key={color}
+                        className={`${styles.colorBtn} ${selectedColor === color ? styles.selected : ''}`}
+                        onClick={() => setSelectedColor(color)}
+                      >
+                        {color}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-            {/* Quantity */}
-            <div className={styles.quantitySection}>
-              <h3>Cantidad</h3>
-              <div className={styles.quantitySelector}>
-                <button onClick={decreaseQuantity} disabled={quantity <= 1}>
-                  <Minus size={16} />
-                </button>
-                <span>{quantity}</span>
-                <button onClick={increaseQuantity} disabled={quantity >= product.stock}>
-                  <Plus size={16} />
-                </button>
-              </div>
-            </div>
+                {/* Quantity */}
+                <div className={styles.quantitySection}>
+                  <h3>Cantidad</h3>
+                  <div className={styles.quantitySelector}>
+                    <button onClick={decreaseQuantity} disabled={quantity <= 1}>
+                      <Minus size={16} />
+                    </button>
+                    <span>{quantity}</span>
+                    <button onClick={increaseQuantity} disabled={quantity >= product.stock}>
+                      <Plus size={16} />
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
 
             {/* Add to Cart Button */}
             <button 
-              className={`${styles.addToCartBtn} ${addedToCart ? styles.added : ''}`}
+              className={`${styles.addToCartBtn} ${addedToCart ? styles.added : ''} ${isOutOfStock ? styles.disabled : ''}`}
               onClick={handleAddToCart}
-              disabled={product.stock === 0}
+              disabled={isOutOfStock}
             >
               <ShoppingBag size={20} />
-              {addedToCart ? '¡Agregado!' : 'Agregar al carrito'}
+              {isOutOfStock ? 'Agotado' : (addedToCart ? '¡Agregado!' : 'Agregar al carrito')}
             </button>
           </div>
         </div>

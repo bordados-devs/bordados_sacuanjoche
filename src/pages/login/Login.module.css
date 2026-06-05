@@ -169,6 +169,20 @@
   font-size: var(--text-meta-desktop);
 }
 
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.logoImage {
+  width: 120px;    
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
 @media (max-width: 768px) {
   .loginCard {
     padding: var(--space-xl);

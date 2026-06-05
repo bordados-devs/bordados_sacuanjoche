@@ -39,7 +39,7 @@ const Login = () => {
           <div className={styles.loginHeader}>
             <div className={styles.logo}>
              <img
-             src="/assets/logo.png"
+             src="/assets/logo.avif"
              alt="Bordados Sacuanjoche"
             className={styles.logoImage}
                 />

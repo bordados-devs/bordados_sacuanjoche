@@ -16,8 +16,8 @@ export const AuthProvider = ({ children }) => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       const currentUser = session?.user ?? null;
       setUser(currentUser);
-      // Only allow login if it's the owner email
-      setIsOwner(currentUser?.email === 'sacuanjochepeleteria@gmail.com');
+      // Check if the authenticated user is the owner
+      checkIfOwner(currentUser?.email);
       setLoading(false);
     });
 
@@ -25,12 +25,23 @@ export const AuthProvider = ({ children }) => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       const currentUser = session?.user ?? null;
       setUser(currentUser);
-      setIsOwner(currentUser?.email === 'sacuanjochepeleteria@gmail.com');
+      checkIfOwner(currentUser?.email);
       setLoading(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const checkIfOwner = (email) => {
+    // Set the owner email - must match exactly what you created in Supabase
+    const ownerEmail = 'sacuanjochepeleteria@gmail.com';
+    const isOwnerUser = email === ownerEmail;
+    setIsOwner(isOwnerUser);
+    
+    if (isOwnerUser) {
+      console.log('Owner authenticated successfully');
+    }
+  };
 
   const signIn = async (email, password) => {
     // Only allow the specific owner email to login
@@ -50,7 +61,8 @@ export const AuthProvider = ({ children }) => {
       toast.success('Bienvenido, Administrador');
       return { success: true, data };
     } catch (error) {
-      toast.error('Credenciales incorrectas');
+      console.error('Login error:', error.message);
+      toast.error('Credenciales incorrectas. Verifica tu email y contraseña.');
       return { success: false, error: error.message };
     }
   };
@@ -59,6 +71,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
+      setUser(null);
+      setIsOwner(false);
       toast.success('Sesión cerrada');
       return { success: true };
     } catch (error) {

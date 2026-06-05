@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 
 const ProductModal = ({ product, onClose, onAddToCart }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
@@ -33,10 +32,6 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
       toast.error('Producto agotado. No disponible para la venta');
       return;
     }
-    if (!selectedSize) {
-      toast.error('Por favor selecciona una talla');
-      return;
-    }
     if (!selectedColor) {
       toast.error('Por favor selecciona un color');
       return;
@@ -45,7 +40,7 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
       toast.error(`Solo tenemos ${product.stock} unidades disponibles`);
       return;
     }
-    onAddToCart(product, selectedSize, selectedColor, quantity);
+    onAddToCart(product, 'Única', selectedColor, quantity);
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
   };
@@ -114,29 +109,14 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
               <p>{product.description}</p>
             </div>
 
-            {/* Size Selection - Only show if not out of stock */}
+            {/* Size Selection - REMOVED completely */}
             {!isOutOfStock && (
               <>
-                <div className={styles.options}>
-                  <h3>Talla</h3>
-                  <div className={styles.sizeOptions}>
-                    {product.sizes.map(size => (
-                      <button
-                        key={size}
-                        className={`${styles.sizeBtn} ${selectedSize === size ? styles.selected : ''}`}
-                        onClick={() => setSelectedSize(size)}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
                 {/* Color Selection */}
                 <div className={styles.options}>
                   <h3>Color</h3>
                   <div className={styles.colorOptions}>
-                    {product.colors.map(color => (
+                    {product.colors?.map(color => (
                       <button
                         key={color}
                         className={`${styles.colorBtn} ${selectedColor === color ? styles.selected : ''}`}

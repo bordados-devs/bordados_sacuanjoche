@@ -118,12 +118,10 @@ const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
             )}
             
             <div className={styles.quickAddOptions}>
-              {/* Size section removed - now using single size */}
-
               <div className={styles.quickAddGroup}>
                 <label>Color <span className={styles.required}>*</span></label>
                 <div className={styles.quickAddColors}>
-                  {product.colors.map(color => (
+                  {product.colors?.map(color => (
                     <button
                       key={color}
                       className={`${styles.quickAddColorBtn} ${selectedColor === color ? styles.selected : ''}`}

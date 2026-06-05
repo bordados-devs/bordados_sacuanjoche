@@ -1,4 +1,3 @@
-// components/footer/Footer.jsx
 import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { 
@@ -193,7 +192,7 @@ const Footer = () => {
             <div className={styles.logo}>
               <a href="/" className={styles.logoLink}>
                 <img 
-                  src="/assets/logo.png" 
+                  src="/assets/logo.avif" 
                   alt="Bordados Sacuanjoche" 
                   className={styles.logoImage}
                 />

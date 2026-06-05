@@ -38,7 +38,11 @@ const Login = () => {
         <div className={styles.loginCard}>
           <div className={styles.loginHeader}>
             <div className={styles.logo}>
-              <span className={styles.logoIcon}>🪡</span>
+             <img
+             src="/assets/logo.png"
+             alt="Bordados Sacuanjoche"
+            className={styles.logoImage}
+                />
             </div>
             <h1 className={styles.title}>Bordados Sacuanjoche</h1>
             <p className={styles.subtitle}>Panel de Administración</p>

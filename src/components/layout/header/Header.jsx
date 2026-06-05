@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag, User, Phone, Sparkles, Package } from 'lucide-react';
+import { Menu, X, ShoppingBag, Sparkles, Package } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
 
@@ -101,7 +101,7 @@ const Header = () => {
         <div className={styles.logo}>
           <div className={styles.logoLink} onClick={() => handleNavigate('/', 'inicio')}>
             <img 
-              src="/assets/logo.png" 
+              src="/assets/logo.avif" 
               alt="Bordados Sacuanjoche" 
               className={styles.logoImage}
             />
@@ -112,12 +112,22 @@ const Header = () => {
         <nav className={styles.desktopNav}>
           <ul className={styles.navList}>
             {navLinks.map((link) => (
-              <li key={link.id}>
+              <li
+                key={link.id}
+                className={link.isButton ? styles.personalizacionItem : ''}
+              >
                 {link.isButton ? (
                   <button
                     className={`${styles.navButton} ${activeLink === link.id ? styles.active : ''}`}
                     onClick={() => handleNavigate(link.href, link.id)}
                   >
+                    {/* Floating Sacuanjoche Flowers */}
+                    <span className={`${styles.flower} ${styles.flower1}`}>🌸</span>
+                    <span className={`${styles.flower} ${styles.flower2}`}>🌼</span>
+                    <span className={`${styles.flower} ${styles.flower3}`}>🌺</span>
+                    <span className={`${styles.flower} ${styles.flower4}`}>🌻</span>
+                    <span className={`${styles.flower} ${styles.flower5}`}>🪷</span>
+                    <span className={`${styles.flower} ${styles.flower6}`}>🌷</span>
                     <Sparkles size={16} />
                     {link.label}
                   </button>

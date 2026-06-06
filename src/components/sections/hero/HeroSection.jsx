@@ -50,7 +50,7 @@ const HeroSection = () => {
 
   const statsData = [
     { id: 'clients', number: 500, label: "Clientes", suffix: "+", icon: <Users size={24} aria-hidden="true" /> },
-    { id: 'products', number: 1000, label: "Productos", suffix: "+", icon: <Truck size={24} aria-hidden="true" /> },
+    { id: 'products', number: 100, label: "Productos", suffix: "+", icon: <Truck size={24} aria-hidden="true" /> },
     { id: 'satisfaction', number: 99, label: "Satisfacción", suffix: "%", icon: <Heart size={24} aria-hidden="true" /> }
   ];
 

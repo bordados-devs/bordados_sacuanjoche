@@ -1,4 +1,3 @@
-// components/sections/stats/StatsSection.jsx
 import React, { useState, useEffect } from 'react';
 import { Users, Truck, Palette, Heart } from 'lucide-react';
 import styles from './StatsSection.module.css';
@@ -13,7 +12,7 @@ const StatsSection = () => {
 
   const stats = [
     { id: 'clients', number: 500, label: "Clientes Satisfechos", icon: <Users size={32} />, suffix: "+" },
-    { id: 'products', number: 1000, label: "Productos Entregados", icon: <Truck size={32} />, suffix: "+" },
+    { id: 'products', number: 100, label: "Productos Entregados", icon: <Truck size={32} />, suffix: "+" },
     { id: 'designs', number: 50, label: "Diseños Exclusivos", icon: <Palette size={32} />, suffix: "+" },
     { id: 'satisfaction', number: 99, label: "Recomendación", icon: <Heart size={32} />, suffix: "%" }
   ];

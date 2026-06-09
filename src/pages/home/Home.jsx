@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import HeroSection from '../../components/sections/hero/HeroSection';
 import AboutSection from '../../components/sections/about/AboutSection';
 import FeaturesSection from '../../components/sections/features/FeaturesSection';
+import Direction from '../../components/sections/direction/Direccion';
 import styles from './Home.module.css';
 
 const Home = () => {
@@ -98,6 +99,9 @@ const Home = () => {
       
       {/* Features Section */}
       <FeaturesSection />
+
+      <Direction />
+
     </div>
   );
 };

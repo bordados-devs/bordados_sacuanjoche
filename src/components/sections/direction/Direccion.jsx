@@ -228,8 +228,7 @@ const Direccion = () => {
               </div>
             </div>
           </div>
-
-          {/* Map Card - YOUR EXACT WORKING MAP CODE */}
+          
           <div className={styles.mapCard}>
             <h2 className={styles.cardTitle}>
               <FiMap size={20} style={{ marginRight: '8px' }} />

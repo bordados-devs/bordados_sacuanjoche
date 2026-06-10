@@ -13,10 +13,8 @@ const Button = ({
   size = 'medium',
   ...restProps
 }) => {
-  // Determine if button is disabled
   const isDisabled = disabled || state === 'disabled';
   
-  // Map state to CSS class
   const getStateClass = () => {
     if (isDisabled) return styles.disabled;
     switch (state) {
@@ -29,8 +27,7 @@ const Button = ({
         return styles.normal;
     }
   };
-  
-  // Map type to CSS class
+
   const getTypeClass = () => {
     switch (type) {
       case 'secondary':
@@ -43,7 +40,7 @@ const Button = ({
     }
   };
   
-  // Map size to CSS class
+  
   const getSizeClass = () => {
     switch (size) {
       case 'small':

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiTrash2, FiPlus, FiMinus, FiShoppingBag, FiArrowLeft } from 'react-icons/fi';
-import { FaWhatsapp } from 'react-icons/fa'; // Changed from FiWhatsApp to FaWhatsapp
+import { FaWhatsapp } from 'react-icons/fa'; 
 import { toast, Toaster } from 'react-hot-toast';
 import styles from './Cart.module.css';
 

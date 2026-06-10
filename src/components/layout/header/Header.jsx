@@ -18,21 +18,15 @@ const Header = () => {
     { id: 'personalizaciones', label: 'Solicita tu producto personalizado', href: '/personalizaciones', isButton: true },
   ];
 
-  // Get cart count from localStorage
   const updateCartCount = () => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     setCartCount(totalItems);
   };
 
-  // Listen for cart updates
   useEffect(() => {
     updateCartCount();
-    
-    // Listen for storage events (when cart changes in another tab)
     window.addEventListener('storage', updateCartCount);
-    
-    // Custom event for cart updates within the same tab
     window.addEventListener('cartUpdated', updateCartCount);
     
     return () => {
@@ -57,144 +51,113 @@ const Header = () => {
     if (active) {
       setActiveLink(active.id);
     }
+  }, [location.pathname, navLinks]);
+
+  // Handle body scroll when menu is open - FIXED
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      // Prevent body scroll but keep the page at the same position
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      }
+    }
+    
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Close menu when clicking on a link and navigate
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isMenuOpen]);
+
   const handleLinkClick = (linkId, href) => {
     setActiveLink(linkId);
     setIsMenuOpen(false);
     navigate(href);
   };
 
-  // Handle navigation
   const handleNavigate = (href, linkId) => {
     setActiveLink(linkId);
     navigate(href);
   };
 
-  // Handle admin login navigation
   const handleAdminClick = () => {
+    setIsMenuOpen(false);
     navigate('/login');
   };
 
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMenuOpen]);
-
-  // Go to cart page
   const goToCart = () => {
+    setIsMenuOpen(false);
     navigate('/carrito');
   };
 
   return (
-    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-      <div className={styles.container}>
-        {/* Logo */}
-        <div className={styles.logo}>
-          <div className={styles.logoLink} onClick={() => handleNavigate('/', 'inicio')}>
-            <img 
-              src="/assets/logo.avif" 
-              alt="Bordados Sacuanjoche" 
-              className={styles.logoImage}
-            />
+    <>
+      <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
+        <div className={styles.container}>
+          {/* Logo */}
+          <div className={styles.logo}>
+            <div className={styles.logoLink} onClick={() => handleNavigate('/', 'inicio')}>
+              <img 
+                src="/assets/logo.avif" 
+                alt="Bordados Sacuanjoche" 
+                className={styles.logoImage}
+              />
+            </div>
           </div>
-        </div>
 
-        {/* Desktop Navigation */}
-        <nav className={styles.desktopNav}>
-          <ul className={styles.navList}>
-            {navLinks.map((link) => (
-              <li
-                key={link.id}
-                className={link.isButton ? styles.personalizacionItem : ''}
-              >
-                {link.isButton ? (
-                  <button
-                    className={`${styles.navButton} ${activeLink === link.id ? styles.active : ''}`}
-                    onClick={() => handleNavigate(link.href, link.id)}
-                  >
-                    {/* Floating Sacuanjoche Flowers */}
-                    <span className={`${styles.flower} ${styles.flower1}`}>🌸</span>
-                    <span className={`${styles.flower} ${styles.flower2}`}>🌼</span>
-                    <span className={`${styles.flower} ${styles.flower3}`}>🌺</span>
-                    <span className={`${styles.flower} ${styles.flower4}`}>🌻</span>
-                    <span className={`${styles.flower} ${styles.flower5}`}>🪷</span>
-                    <span className={`${styles.flower} ${styles.flower6}`}>🌷</span>
-                    <Sparkles size={16} />
-                    {link.label}
-                  </button>
-                ) : (
-                  <button
-                    className={`${styles.navLink} ${activeLink === link.id ? styles.active : ''}`}
-                    onClick={() => handleNavigate(link.href, link.id)}
-                  >
-                    {link.label}
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Right side actions */}
-        <div className={styles.actions}>
-          <button 
-            className={styles.iconButton} 
-            aria-label="Administrar stock"
-            onClick={handleAdminClick}
-            title="Administrar stock"
-          >
-            <Package size={20} />
-            <span className={styles.iconLabel}>Admin</span>
-          </button>
-          <button 
-            className={styles.iconButton} 
-            aria-label="Carrito de compras" 
-            onClick={goToCart}
-            title="Ir al carrito"
-          >
-            <ShoppingBag size={20} />
-            {cartCount > 0 && <span className={styles.cartBadge}>{cartCount}</span>}
-            <span className={styles.iconLabel}>Carrito</span>
-          </button>
-
-          {/* Mobile menu button */}
-          <button
-            className={`${styles.menuButton} ${isMenuOpen ? styles.open : ''}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Menú"
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation Overlay */}
-        <div className={`${styles.mobileNav} ${isMenuOpen ? styles.open : ''}`}>
-          <div className={styles.mobileNavContent}>
-            <ul className={styles.mobileNavList}>
+          {/* Desktop Navigation */}
+          <nav className={styles.desktopNav}>
+            <ul className={styles.navList}>
               {navLinks.map((link) => (
-                <li key={link.id}>
+                <li key={link.id} className={link.isButton ? styles.personalizacionItem : ''}>
                   {link.isButton ? (
                     <button
-                      className={`${styles.mobileNavButton} ${activeLink === link.id ? styles.active : ''}`}
-                      onClick={() => handleLinkClick(link.id, link.href)}
+                      className={`${styles.navButton} ${activeLink === link.id ? styles.active : ''}`}
+                      onClick={() => handleNavigate(link.href, link.id)}
                     >
-                      <Sparkles size={18} />
+                      <span className={`${styles.flower} ${styles.flower1}`}>🌸</span>
+                      <span className={`${styles.flower} ${styles.flower2}`}>🌼</span>
+                      <span className={`${styles.flower} ${styles.flower3}`}>🌺</span>
+                      <span className={`${styles.flower} ${styles.flower4}`}>🌻</span>
+                      <span className={`${styles.flower} ${styles.flower5}`}>🪷</span>
+                      <span className={`${styles.flower} ${styles.flower6}`}>🌷</span>
+                      <Sparkles size={16} />
                       {link.label}
                     </button>
                   ) : (
                     <button
-                      className={`${styles.mobileNavLink} ${activeLink === link.id ? styles.active : ''}`}
-                      onClick={() => handleLinkClick(link.id, link.href)}
+                      className={`${styles.navLink} ${activeLink === link.id ? styles.active : ''}`}
+                      onClick={() => handleNavigate(link.href, link.id)}
                     >
                       {link.label}
                     </button>
@@ -202,24 +165,84 @@ const Header = () => {
                 </li>
               ))}
             </ul>
-            
-            {/* Mobile additional actions */}
-            <div className={styles.mobileActions}>
-              <button 
-                className={styles.mobileAdminBtn}
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  handleAdminClick();
-                }}
-              >
-                <Package size={20} />
-                Administrar stock
-              </button>
-            </div>
+          </nav>
+
+          {/* Right side actions */}
+          <div className={styles.actions}>
+            <button 
+              className={styles.iconButton} 
+              aria-label="Administrar stock"
+              onClick={handleAdminClick}
+              title="Administrar stock"
+            >
+              <Package size={20} />
+              <span className={styles.iconLabel}>Admin</span>
+            </button>
+            <button 
+              className={styles.iconButton} 
+              aria-label="Carrito de compras" 
+              onClick={goToCart}
+              title="Ir al carrito"
+            >
+              <ShoppingBag size={20} />
+              {cartCount > 0 && <span className={styles.cartBadge}>{cartCount}</span>}
+              <span className={styles.iconLabel}>Carrito</span>
+            </button>
+
+            {/* Mobile menu button */}
+            <button
+              className={`${styles.menuButton} ${isMenuOpen ? styles.open : ''}`}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Menú"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Navigation Overlay - Outside header for better stacking context */}
+      <div className={`${styles.mobileNav} ${isMenuOpen ? styles.open : ''}`}>
+        <div className={styles.mobileNavContent}>
+          <ul className={styles.mobileNavList}>
+            {navLinks.map((link, index) => (
+              <li key={link.id}>
+                {link.isButton ? (
+                  <button
+                    className={`${styles.mobileNavButton} ${activeLink === link.id ? styles.active : ''}`}
+                    onClick={() => handleLinkClick(link.id, link.href)}
+                    style={{ animationDelay: `${index * 0.05}s` }}
+                  >
+                    <Sparkles size={18} />
+                    {link.label}
+                  </button>
+                ) : (
+                  <button
+                    className={`${styles.mobileNavLink} ${activeLink === link.id ? styles.active : ''}`}
+                    onClick={() => handleLinkClick(link.id, link.href)}
+                    style={{ animationDelay: `${index * 0.05}s` }}
+                  >
+                    {link.label}
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+          
+          {/* Mobile additional actions */}
+          <div className={styles.mobileActions}>
+            <button 
+              className={styles.mobileAdminBtn}
+              onClick={handleAdminClick}
+            >
+              <Package size={20} />
+              Administrar stock
+            </button>
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 };
 

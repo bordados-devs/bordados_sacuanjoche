@@ -29,14 +29,10 @@ const Personalizaciones = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const productTypes = [
-    'Camisas bordadas',
-    'Vestidos bordados',
-    'Toallas personalizadas',
-    'Ropa deportiva',
-    'Uniformes empresariales',
-    'Accesorios',
-    'Artesanías',
-    'Otro'
+    'Damas',
+    'Caballeros',
+    'Niños'
+  
   ];
 
   const handleChange = (e) => {

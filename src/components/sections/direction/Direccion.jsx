@@ -44,7 +44,7 @@ const Direccion = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Map render - YOUR EXACT WORKING CODE
+
   const renderMap = () => {
     if (loadError) {
       return (

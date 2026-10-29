@@ -44,7 +44,7 @@ const Footer = () => {
   useEffect(() => {
     emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
     console.log('EmailJS initialized');
-  }, []);
+  }, [EMAILJS_CONFIG.PUBLIC_KEY]);
 
   const quickLinks = [
     { label: 'Productos personalizados', id: 'custom-products', icon: FaShoppingBag, content: 'custom' },

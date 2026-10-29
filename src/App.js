@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/layout/layout/Layout';
-import HeroSection from './components/sections/hero/HeroSection';
 import Catalogo from './pages/catalogo/Catalogo'; 
 import Home from './pages/home/Home';
 import Personalizaciones from './pages/personalizaciones/Personalizaciones';

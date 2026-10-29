@@ -11,13 +11,13 @@ const Header = () => {
   const [activeLink, setActiveLink] = useState('inicio');
   const [cartCount, setCartCount] = useState(0);
 
-  const navLinks = [
+  const navLinks = React.useMemo(() => [
     { id: 'inicio', label: 'Inicio', href: '/' },
     { id: 'catalogo', label: 'Catálogo', href: '/catalogo' },
     { id: 'recomendador-ia', label: '🤖 Recomendador IA', href: '/recomendador-ia' },
     { id: 'nosotros', label: 'Nosotros', href: '/about' },
     { id: 'personalizaciones', label: 'Solicita tu producto personalizado', href: '/personalizaciones', isButton: true },
-  ];
+  ], []);
 
   const updateCartCount = () => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');

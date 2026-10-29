@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Brain, Sparkles, ArrowRight, ArrowLeft, CheckCircle, Info, Clock, DollarSign, Palette } from 'lucide-react';
+import { Brain, Sparkles, ArrowRight, ArrowLeft, CheckCircle, Clock, DollarSign, Palette } from 'lucide-react';
 import { useAIRecommendation } from '../../hooks/useAIRecommendation';
 import knowledgeBase from '../../utils/knowledge/knowledgeBase';
 import styles from './AIRecommendationAssistant.module.css';

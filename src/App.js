@@ -6,9 +6,11 @@ import Home from './pages/home/Home';
 import Personalizaciones from './pages/personalizaciones/Personalizaciones';
 import Cart from './pages/carrito/Cart';
 import Login from './pages/login/Login';
+import Account from './pages/cuenta/Account';
 import Inventory from './pages/admin/Inventory';
 import { CartProvider } from './context/CartContext.jsx';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { UserLibraryProvider } from './context/UserLibraryContext';
 import AboutUs from './pages/about/AboutUs';
 import AIRecommendation from './pages/ai/AIRecommendation';
 import styles from './App.module.css';
@@ -36,6 +38,8 @@ function AppRoutes() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/carrito" element={<Cart />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/cuenta" element={<Account />} />
+        <Route path="/registro" element={<Account initialMode="register" />} />
         <Route 
           path="/admin/inventario" 
           element={
@@ -59,9 +63,11 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <CartProvider>
-          <AppRoutes />
-        </CartProvider>
+        <UserLibraryProvider>
+          <CartProvider>
+            <AppRoutes />
+          </CartProvider>
+        </UserLibraryProvider>
       </AuthProvider>
     </Router>
   );

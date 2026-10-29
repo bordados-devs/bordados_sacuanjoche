@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag, Sparkles, Package } from 'lucide-react';
+import { Menu, X, ShoppingBag, Sparkles, Package, User } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
 import styles from './Header.module.css';
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, displayName } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState('inicio');
@@ -121,6 +123,11 @@ const Header = () => {
     navigate('/carrito');
   };
 
+  const goToAccount = () => {
+    setIsMenuOpen(false);
+    navigate('/cuenta');
+  };
+
   return (
     <>
       <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
@@ -170,6 +177,15 @@ const Header = () => {
 
           {/* Right side actions */}
           <div className={styles.actions}>
+            <button 
+              className={styles.iconButton} 
+              aria-label="Mi cuenta"
+              onClick={goToAccount}
+              title={user ? `Mi cuenta: ${displayName}` : 'Mi cuenta'}
+            >
+              <User size={20} />
+              <span className={styles.iconLabel}>Cuenta</span>
+            </button>
             <button 
               className={styles.iconButton} 
               aria-label="Administrar stock"
@@ -233,6 +249,13 @@ const Header = () => {
           
           {/* Mobile additional actions */}
           <div className={styles.mobileActions}>
+            <button 
+              className={`${styles.mobileAdminBtn} ${styles.mobileAccountBtn}`}
+              onClick={goToAccount}
+            >
+              <User size={20} />
+              {user ? `Mi cuenta (${displayName})` : 'Mi cuenta'}
+            </button>
             <button 
               className={styles.mobileAdminBtn}
               onClick={handleAdminClick}

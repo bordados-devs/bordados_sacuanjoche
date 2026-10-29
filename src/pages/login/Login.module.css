@@ -169,6 +169,20 @@
   font-size: var(--text-meta-desktop);
 }
 
+.loginFooter p + p {
+  margin-top: var(--space-xs);
+}
+
+.loginFooter a {
+  color: var(--primary-500);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+
+.loginFooter a:hover {
+  text-decoration: underline;
+}
+
 .logo {
   display: flex;
   justify-content: center;

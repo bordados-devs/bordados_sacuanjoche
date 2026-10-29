@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { FiEye, FiShoppingBag, FiAlertCircle } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
+import ProductActions from '../../components/product/ProductActions';
+import { RatingSummary } from '../../components/product/StarRating';
+import { useUserLibrary } from '../../context/UserLibraryContext';
 import styles from './ProductCard.module.css';
 
 const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
   const [showQuickAdd, setShowQuickAdd] = useState(false);
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const { getRatingSummary } = useUserLibrary();
+  const ratingSummary = getRatingSummary(product.id);
 
   // Check if product is out of stock
   const isOutOfStock = product.stock === 0 || product.status === 'agotado';
@@ -56,6 +61,8 @@ const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
           <FiEye size={24} />
           <span>Ver detalles</span>
         </div>
+
+        <ProductActions product={product} variant="overlay" />
         
         {/* Stock Status Badges */}
         {isOutOfStock && (
@@ -74,6 +81,7 @@ const ProductCard = ({ product, onImageClick, onQuickAdd }) => {
       
       <div className={styles.content}>
         <h3 className={styles.title}>{product.title}</h3>
+        <RatingSummary summary={ratingSummary} size={13} className={styles.rating} />
         <p className={styles.description}>{product.shortDescription}</p>
         
         <div className={styles.stockInfo}>

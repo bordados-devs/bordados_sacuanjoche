@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { FiLock, FiMail, FiEye, FiEyeOff } from 'react-icons/fi';
 import { Toaster, toast } from 'react-hot-toast';
@@ -22,7 +22,7 @@ const Login = () => {
     }
 
     setLoading(true);
-    const result = await signIn(email, password);
+    const result = await signIn(email, password, { adminOnly: true });
     setLoading(false);
 
     if (result.success) {
@@ -99,6 +99,10 @@ const Login = () => {
 
           <div className={styles.loginFooter}>
             <p>Panel exclusivo para administradores</p>
+            <p>
+              ¿Eres cliente?{' '}
+              <Link to="/cuenta">Entra a tu cuenta</Link>
+            </p>
           </div>
         </div>
       </div>

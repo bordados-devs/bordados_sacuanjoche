@@ -153,6 +153,28 @@
   color: var(--primary-500);
 }
 
+.ratingButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-secondary);
+}
+
+.ratingLink {
+  font-size: 0.78rem;
+  color: var(--primary-500);
+  text-decoration: underline;
+}
+
+.ratingButton:hover .ratingLink {
+  color: var(--primary-400);
+}
+
 .stockInfo {
   margin-bottom: var(--space-sm);
 }

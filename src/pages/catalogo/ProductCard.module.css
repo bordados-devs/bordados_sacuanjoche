@@ -139,6 +139,10 @@
   overflow: hidden;
 }
 
+.rating {
+  margin-bottom: var(--space-xs);
+}
+
 .stockInfo {
   margin-bottom: var(--space-sm);
 }

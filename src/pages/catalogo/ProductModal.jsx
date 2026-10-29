@@ -2,15 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, Minus, Plus, ShoppingBag } from 'lucide-react';
 import styles from './ProductModal.module.css';
 import toast from 'react-hot-toast';
+import ProductActions from '../../components/product/ProductActions';
+import ProductReviews from '../../components/product/ProductReviews';
+import { RatingSummary } from '../../components/product/StarRating';
+import { useUserLibrary } from '../../context/UserLibraryContext';
 
 const ProductModal = ({ product, onClose, onAddToCart }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
+  const { getRatingSummary } = useUserLibrary();
+  const ratingSummary = getRatingSummary(product.id);
 
   // Check if product is out of stock
   const isOutOfStock = product.stock === 0 || product.status === 'agotado';
+
+  const scrollToReviews = () => {
+    document
+      .getElementById(`reviews-title-${product.id}`)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -92,6 +104,15 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
           {/* Product Info */}
           <div className={styles.infoSection}>
             <h2 className={styles.productTitle}>{product.title}</h2>
+            <button
+              type="button"
+              className={styles.ratingButton}
+              onClick={scrollToReviews}
+              aria-label="Ver opiniones de clientes"
+            >
+              <RatingSummary summary={ratingSummary} size={15} />
+              <span className={styles.ratingLink}>Ver opiniones</span>
+            </button>
             <p className={styles.productPrice}>C${product.price.toFixed(2)}</p>
             
             <div className={styles.stockInfo}>
@@ -103,6 +124,8 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
                 <span className={styles.outOfStock}>✗ Agotado</span>
               )}
             </div>
+
+            <ProductActions product={product} variant="inline" />
 
             <div className={styles.description}>
               <h3>Descripción</h3>
@@ -155,6 +178,8 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
             </button>
           </div>
         </div>
+
+        <ProductReviews product={product} />
       </div>
     </div>
   );

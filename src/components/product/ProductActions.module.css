@@ -1,0 +1,114 @@
+@import '../../styles/variables.css';
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-secondary);
+  font-weight: var(--weight-semibold);
+  transition: all var(--transition-fast);
+}
+
+.actionButton svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+/* Variante para tarjetas: botones redondos sobre la imagen */
+.overlay {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  z-index: 3;
+}
+
+.overlay .actionButton {
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border-radius: var(--border-radius-full);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--gray-500);
+  box-shadow: var(--shadow-md);
+}
+
+.overlay .actionButton:hover {
+  background: #ffffff;
+  color: var(--primary-500);
+  transform: translateY(-2px);
+}
+
+.overlay .actionButton.liked {
+  color: #d81b60;
+}
+
+.overlay .actionButton.saved {
+  color: var(--primary-500);
+}
+
+.countBadge {
+  position: absolute;
+  bottom: -0.2rem;
+  right: -0.2rem;
+  min-width: 1.05rem;
+  padding: 0.05rem 0.25rem;
+  border-radius: var(--border-radius-full);
+  background: var(--primary-500);
+  color: #ffffff;
+  font-size: 0.6rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.overlay .actionButton.liked .countBadge {
+  background: #d81b60;
+}
+
+/* Variante en línea: botones con texto dentro del detalle */
+.inline {
+  flex-wrap: wrap;
+}
+
+.inline .actionButton {
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--border-radius-full);
+  background: var(--primary-100);
+  color: var(--primary-500);
+  font-size: 0.85rem;
+}
+
+.inline .actionButton:hover {
+  background: var(--primary-200);
+  transform: translateY(-1px);
+}
+
+.inline .actionButton.liked {
+  background: #fde8ef;
+  color: #d81b60;
+}
+
+.inline .actionButton.saved {
+  background: var(--primary-500);
+  color: #ffffff;
+}
+
+.inlineCount {
+  padding: 0.05rem 0.35rem;
+  border-radius: var(--border-radius-full);
+  background: rgba(45, 41, 38, 0.12);
+  font-size: 0.7rem;
+}
+
+.inline .actionButton.saved .inlineCount {
+  background: rgba(255, 255, 255, 0.25);
+}

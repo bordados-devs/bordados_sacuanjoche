@@ -7,6 +7,9 @@ import {
   AlertTriangle,
   Palette,
 } from 'lucide-react';
+import ProductActions from '../product/ProductActions';
+import { RatingSummary } from '../product/StarRating';
+import { useUserLibrary } from '../../context/UserLibraryContext';
 import styles from './RecommendedProductCard.module.css';
 
 const formatPrice = (value) => `C$${(Number(value) || 0).toFixed(2)}`;
@@ -15,6 +18,8 @@ const RecommendedProductCard = ({ product, onViewDetails }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = product.images?.length ? product.images : [];
   const isOutOfStock = product.stock === 0 || product.status === 'agotado';
+  const { getRatingSummary } = useUserLibrary();
+  const ratingSummary = getRatingSummary(product.id);
 
   useEffect(() => {
     setCurrentImageIndex(0);
@@ -82,6 +87,8 @@ const RecommendedProductCard = ({ product, onViewDetails }) => {
       <div className={styles.content}>
         <h4 className={styles.productTitle}>{product.title}</h4>
 
+        <RatingSummary summary={ratingSummary} size={13} />
+
         {product.shortDescription && (
           <p className={styles.productDescription}>{product.shortDescription}</p>
         )}
@@ -130,6 +137,8 @@ const RecommendedProductCard = ({ product, onViewDetails }) => {
             ))}
           </div>
         )}
+
+        <ProductActions product={product} variant="inline" />
 
         <button
           type="button"

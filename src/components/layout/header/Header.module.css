@@ -287,6 +287,11 @@
   transform: translateX(var(--space-sm));
 }
 
+.mobileAccountBtn {
+  margin-bottom: var(--space-sm);
+  background: #ffffff;
+}
+
 /* Responsive adjustments */
 @media (max-width: 48rem) {
   .iconLabel {

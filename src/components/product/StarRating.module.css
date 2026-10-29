@@ -1,0 +1,63 @@
+@import '../../styles/variables.css';
+
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+  line-height: 1;
+}
+
+.star,
+.starButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-200);
+  line-height: 1;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.starButton {
+  background: none;
+  border: none;
+  padding: 0.1rem;
+  cursor: pointer;
+}
+
+.starButton:hover {
+  transform: scale(1.15);
+}
+
+.star svg,
+.starButton svg {
+  fill: none;
+  stroke: currentColor;
+}
+
+.filled {
+  color: var(--secondary-500);
+}
+
+.filled svg {
+  fill: currentColor;
+}
+
+.summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.summaryValue {
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  font-weight: var(--weight-semibold);
+  color: var(--gray-500);
+}
+
+.summaryCount {
+  font-family: var(--font-secondary);
+  font-size: 0.75rem;
+  color: var(--gray-300);
+}

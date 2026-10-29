@@ -10,6 +10,30 @@ class RecommendationEngine {
     const recommendations = [];
     const activatedRules = [];
 
+    // Si no hay información suficiente, dar recomendaciones generales
+    const hasInfo = Object.values(userProfile).some(v => v && (Array.isArray(v) ? v.length > 0 : v !== ''));
+    
+    if (!hasInfo) {
+      // Recomendaciones por defecto
+      Object.keys(this.knowledgeBase.productFrames).forEach((tipoProducto, idx) => {
+        const frame = this.knowledgeBase.productFrames[tipoProducto];
+        recommendations.push({
+          tipo: tipoProducto,
+          frame: frame,
+          regla: 'Recomendación General',
+          razon: 'Pieza artesanal versátil, perfecta para conocer la calidad de nuestros bordados.',
+          prioridad: 5 - idx,
+          score: 50
+        });
+      });
+      
+      return {
+        recommendations: recommendations.slice(0, 3),
+        activatedRules: [],
+        explanation: this.generateExplanation([], userProfile)
+      };
+    }
+
     // Evaluar cada regla
     this.knowledgeBase.reglas.forEach(regla => {
       if (this.evaluateRule(regla, userProfile)) {
@@ -29,6 +53,24 @@ class RecommendationEngine {
         });
       }
     });
+
+    // Si no hay reglas activadas, dar recomendaciones basadas en presupuesto
+    if (recommendations.length === 0) {
+      Object.keys(this.knowledgeBase.productFrames).forEach((tipoProducto) => {
+        const frame = this.knowledgeBase.productFrames[tipoProducto];
+        const userMax = userProfile.presupuesto_max || 2000;
+        if (frame.slots.rango_precio.max <= userMax + 200) {
+          recommendations.push({
+            tipo: tipoProducto,
+            frame: frame,
+            regla: 'Recomendación por Presupuesto',
+            razon: 'Se ajusta a tu rango de presupuesto y es una excelente opción en nuestro catálogo.',
+            prioridad: 6,
+            score: this.calculateScore(frame, userProfile)
+          });
+        }
+      });
+    }
 
     // Eliminar duplicados y ordenar por prioridad y score
     const uniqueRecommendations = this.removeDuplicates(recommendations);
@@ -53,7 +95,7 @@ class RecommendationEngine {
       const ruleValue = condicion[key];
       const userValue = userProfile[key];
       
-      if (userValue === undefined || userValue === null) {
+      if (userValue === undefined || userValue === null || userValue === '') {
         continue; // Skip if user didn't provide this info
       }
 
@@ -130,13 +172,14 @@ class RecommendationEngine {
 
   generateExplanation(activatedRules, userProfile) {
     if (activatedRules.length === 0) {
-      return 'Basado en la información proporcionada, te recomiendo explorar nuestro catálogo completo para encontrar el bordado perfecto para ti.';
+      return 'He analizado tu perfil y te ofrezco las mejores recomendaciones basadas en nuestro catálogo de bordados artesanales. Cada pieza ha sido cuidadosamente seleccionada considerando tus preferencias.';
     }
     
-    let explanation = 'He analizado tus respuestas y he activado las siguientes reglas de conocimiento:\n\n';
+    let explanation = 'He analizado tus respuestas utilizando nuestro Sistema Experto con Base de Conocimiento y Frames:\n\n';
     activatedRules.forEach((regla, idx) => {
-      explanation += `${idx + 1}. ${regla.nombre}: ${regla.accion.razon}\n`;
+      explanation += `• ${regla.nombre}: ${regla.accion.razon}\n`;
     });
+    explanation += '\nEstas recomendaciones se basan en reglas lógicas y conocimiento artesanal de Bordados Sacuanjoche.';
     
     return explanation;
   }

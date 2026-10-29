@@ -222,15 +222,13 @@ const AIRecommendationAssistant = () => {
           <div className={styles.explanationText}>{explanation}</div>
         </div>
         
-        {aiAdvice && (
-          <div className={styles.aiAdviceCard}>
-            <div className={styles.aiAdviceHeader}>
-              <Sparkles size={24} color="#8B5E3C" />
-              <h3 className={styles.aiAdviceTitle}>Asesoramiento con IA - DeepSeek</h3>
-            </div>
-            <div className={styles.aiAdviceText}>{aiAdvice}</div>
+        <div className={styles.aiAdviceCard}>
+          <div className={styles.aiAdviceHeader}>
+            <Sparkles size={24} color="#8B5E3C" />
+            <h3 className={styles.aiAdviceTitle}>Asesoramiento con IA - DeepSeek</h3>
           </div>
-        )}
+          <div className={styles.aiAdviceText}>{aiAdvice || 'Las recomendaciones han sido generadas basadas en nuestro conocimiento artesanal y las reglas del sistema experto. Nuestro equipo te ayudará a personalizar cada pieza según tus necesidades.'}</div>
+        </div>
         
         <h2 style={{ fontFamily: 'var(--font-primary)', fontSize: '1.75rem', marginBottom: 'var(--space-lg)', color: 'var(--gray-500)' }}>
           Productos Recomendados

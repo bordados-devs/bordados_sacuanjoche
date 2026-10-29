@@ -167,14 +167,26 @@ const HeroSection = () => {
           <p className={styles.subtitle}>
             Explora nuestros productos de alta calidad ideales para cada ocasión
           </p>
-          <button 
-            className={styles.ctaButton} 
-            onClick={goToCatalog}
-            aria-label="Explorar catálogo de productos"
-          >
-            Explorar Catálogo
-            <ChevronRight size={20} aria-hidden="true" />
-          </button>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <button 
+              className={styles.ctaButton} 
+              onClick={goToCatalog}
+              aria-label="Explorar catálogo de productos"
+            >
+              Explorar Catálogo
+              <ChevronRight size={20} aria-hidden="true" />
+            </button>
+            <button 
+              className={styles.ctaButton} 
+              onClick={() => navigate('/recomendador-ia')}
+              aria-label="Usar recomendador inteligente con IA"
+              style={{ background: 'linear-gradient(135deg, #8B5E3C 0%, #D2691E 100%)' }}
+            >
+              <Sparkles size={20} aria-hidden="true" />
+              Recomendador IA
+              <ChevronRight size={20} aria-hidden="true" />
+            </button>
+          </div>
           
           <div className={styles.features}>
             <div className={styles.feature}>

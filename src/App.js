@@ -11,6 +11,7 @@ import Inventory from './pages/admin/Inventory';
 import { CartProvider } from './context/CartContext.jsx';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AboutUs from './pages/about/AboutUs';
+import AIRecommendation from './pages/ai/AIRecommendation';
 import styles from './App.module.css';
 
 // Protected Route Component
@@ -31,6 +32,8 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/catalogo" element={<Catalogo />} /> 
         <Route path="/personalizaciones" element={<Personalizaciones />} />
+        <Route path="/recomendador-ia" element={<AIRecommendation />} />
+        <Route path="/ai-recommendation" element={<AIRecommendation />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/carrito" element={<Cart />} />
         <Route path="/login" element={<Login />} />

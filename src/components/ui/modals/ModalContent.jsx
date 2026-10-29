@@ -1,5 +1,6 @@
 // components/ui/modals/ModalContent.jsx
 import React from 'react';
+import { buildWhatsAppUrl } from '../../../config/contact';
 import styles from './ModalContent.module.css';
 
 export const FAQContent = () => {
@@ -151,7 +152,12 @@ export const CustomProductsContent = () => {
       
       <div className={styles.contactCTA}>
         <p>¿Listo para crear algo único?</p>
-        <a href="https://wa.me/50587192899" className={styles.whatsappButton}>
+        <a
+          href={buildWhatsAppUrl('Hola, quiero información sobre un bordado personalizado. Recomendado por IA')}
+          className={styles.whatsappButton}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Contáctanos por WhatsApp
         </a>
       </div>

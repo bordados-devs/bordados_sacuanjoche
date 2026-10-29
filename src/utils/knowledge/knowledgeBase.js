@@ -120,15 +120,40 @@ export const knowledgeBase = {
     },
     {
       id: 5,
-      nombre: 'Uso diario',
+      nombre: 'Uso diario o prenda de vestir',
       condicion: {
-        uso: ['diario', 'cotidiano'],
+        uso: ['prenda_vestir'],
         genero: 'femenino'
       },
       accion: {
         recomendar: ['accesorios', 'blusa_tradicional'],
         prioridad: 7,
         razon: 'Para uso diario, recomendamos piezas versátiles y cómodas que se adapten a cualquier ocasión.'
+      }
+    },
+    {
+      id: 6,
+      nombre: 'Regalo con presupuesto medio',
+      condicion: {
+        ocasion: ['regalo'],
+        presupuesto_max: { '<=': 1000 }
+      },
+      accion: {
+        recomendar: ['accesorios'],
+        prioridad: 8,
+        razon: 'Los accesorios y piezas bordadas son un regalo artesanal único que se adapta a tu presupuesto.'
+      }
+    },
+    {
+      id: 7,
+      nombre: 'Ocasión de uso diario',
+      condicion: {
+        ocasion: ['uso_diario']
+      },
+      accion: {
+        recomendar: ['accesorios', 'blusa_tradicional'],
+        prioridad: 6,
+        razon: 'Para el día a día conviene una pieza versátil, cómoda y con acabados resistentes.'
       }
     }
   ],

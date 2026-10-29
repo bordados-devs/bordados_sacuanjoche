@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiTrash2, FiPlus, FiMinus, FiShoppingBag, FiArrowLeft } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa'; 
 import { toast, Toaster } from 'react-hot-toast';
+import { buildWhatsAppUrl } from '../../config/contact';
 import styles from './Cart.module.css';
 
 const Cart = () => {
@@ -62,9 +63,9 @@ const Cart = () => {
       return;
     }
 
-    let message = '🛍️ *NUEVO PEDIDO - BORDADOS SACUANJOCHE* 🛍️\n\n';
+    let message = '*NUEVO PEDIDO - BORDADOS SACUANJOCHE*\n\n';
     message += '*DETALLES DEL PEDIDO:*\n';
-    message += '─'.repeat(30) + '\n\n';
+    message += '-'.repeat(30) + '\n\n';
     
     cartItems.forEach((item, idx) => {
       message += `*${idx + 1}. ${item.title}*\n`;
@@ -75,22 +76,20 @@ const Cart = () => {
       message += `   Subtotal: C$${(item.price * item.quantity).toFixed(2)}\n\n`;
     });
     
-    message += '─'.repeat(30) + '\n\n';
+    message += '-'.repeat(30) + '\n\n';
     message += `*RESUMEN:*\n`;
     message += `Subtotal: C$${subtotal.toFixed(2)}\n`;
     message += `Descuento: C$${discount.toFixed(2)}\n`;
     message += `Impuesto (15%): C$${tax.toFixed(2)}\n`;
     message += `*TOTAL: C$${total.toFixed(2)}*\n\n`;
-    message += '─'.repeat(30) + '\n\n';
-    message += '📞 *Datos de contacto:*\n';
+    message += '-'.repeat(30) + '\n\n';
+    message += '*Datos de contacto:*\n';
     message += 'Nombre: [Ingrese su nombre]\n';
     message += 'Teléfono: [Ingrese su teléfono]\n';
     message += 'Dirección: [Ingrese su dirección]\n\n';
-    message += '✨ *Gracias por su compra!* ✨';
+    message += '*Gracias por su compra.*';
 
-    const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = '50558315377';
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+    window.open(buildWhatsAppUrl(message), '_blank');
   };
 
   // Format currency

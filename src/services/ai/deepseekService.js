@@ -63,10 +63,19 @@ class DeepSeekService {
       - Colores preferidos: ${userProfile.colores_preferidos?.join(', ') || 'Cualquiera'}
       
       Productos recomendados:
-      ${recommendations.map((rec, idx) => `${idx + 1}. ${rec.nombre} - ${rec.razon}`).join('\n')}
+      ${recommendations
+        .map((rec, idx) => {
+          const products = rec.productos?.length
+            ? ` | Productos reales del catálogo: ${rec.productos.join(', ')}`
+            : ' | No hay producto exacto en catálogo, requiere personalización';
+          return `${idx + 1}. ${rec.nombre} - ${rec.razon}${products}`;
+        })
+        .join('\n')}
       
       Por favor, proporciona un asesoramiento detallado y personalizado explicando cada recomendación,
       sugerencias de colores, tiempo de elaboración y consejos para el cliente.
+      Si hay productos reales del catálogo, menciónalos por su nombre. Si no los hay, invita al cliente
+      a solicitar una cotización personalizada por WhatsApp.
     `;
 
     const messages = [
